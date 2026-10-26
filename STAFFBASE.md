@@ -7,7 +7,7 @@
    https://david24387.github.io/adventskalender/euromaster.adventskalender.js
 3. Installieren, anschließend Seiteneditor neu laden.
 4. EUROMASTER Adventskalender zur gewünschten Seite hinzufügen.
-5. Für den Test vor Dezember im Widget den Vorschaumodus aktivieren.
+5. Unter dem Kalender „Redaktionsbereich“ öffnen und mit dem separat mitgeteilten Vorschau-Passwort anmelden. Alle 24 Türchen lassen sich dann öffnen. Mit „Vorschau beenden“ wieder sperren.
 
 ## Nutzererkennung
 
@@ -15,7 +15,7 @@ Die Factory erhält die Staffbase Widget API und liest über getUserInformation(
 
 ## Grenzen dieser Version
 
-Keine zentrale Teilnehmerliste, keine verbindliche Gewinnspielteilnahme. Lokale Demo-Klicks können durch Löschen des Browserspeichers zurückgesetzt werden. Datumskontrolle basiert auf der Gerätezeit. Vorschaumodus erlaubt die Auswahl eines beliebigen Türchens. Keine Backend-Authentifizierung implementiert. Für produktiven Einsatz benötigt der Kalender einen geschützten Dienst mit verifizierter Nutzeridentität, Datumsprüfung, eindeutiger Kombination aus Jahr/Türchen/Nutzer-ID und geschütztem Export für die Auslosung. Niemals SDK-Profildaten allein als vertrauenswürdige serverseitige Anmeldung akzeptieren.
+Keine zentrale Teilnehmerliste, keine verbindliche Gewinnspielteilnahme. Lokale Demo-Klicks können durch Löschen des Browserspeichers zurückgesetzt werden. Datumskontrolle basiert auf der Gerätezeit. Die Redaktionsvorschau wird über eine Passwortabfrage geöffnet; der frühere URL-Parameter und die alte Widget-Vorschauoption schalten sie nicht mehr frei. Das Passwort wird nur als SHA-256-Hash ausgeliefert. Diese rein clientseitige Sperre ist manipulierbar und schützt keine vertraulichen Inhalte oder Verwaltungsrechte. Keine Backend-Authentifizierung implementiert. Für produktiven Einsatz benötigt der Kalender einen geschützten Dienst mit verifizierter Nutzeridentität, Datumsprüfung, eindeutiger Kombination aus Jahr/Türchen/Nutzer-ID und geschütztem Export für die Auslosung. Niemals SDK-Profildaten allein als vertrauenswürdige serverseitige Anmeldung akzeptieren.
 
 ## Technische Prüfung
 
