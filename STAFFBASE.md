@@ -1,24 +1,18 @@
-# Staffbase-Custom-Widget
+# Staffbase-Custom-Widget v2
 
-## Installation
+Bestehende Bundle-URL:
+https://david24387.github.io/adventskalender/euromaster.adventskalender.js
 
-1. Studio → Einstellungen → Custom Widgets.
-2. Als Widget Bundle diese URL eintragen:
-   https://david24387.github.io/adventskalender/euromaster.adventskalender.js
-3. Installieren, anschließend Seiteneditor neu laden.
-4. EUROMASTER Adventskalender zur gewünschten Seite hinzufügen.
-5. Unter dem Kalender „Redaktionsbereich“ öffnen und mit dem separat mitgeteilten Vorschau-Passwort anmelden. Alle 24 Türchen lassen sich dann öffnen. Mit „Vorschau beenden“ wieder sperren.
+Das Bundle liefert jetzt 24 unterschiedliche Weihnachtsinhalte plus eine Tagesverlosung. `euromaster.adventskalender.v2.js` ist identisch. Änderungen werden gegebenenfalls erst nach Aktualisierung des Widgets bzw. des Staffbase-Caches sichtbar.
 
-## Nutzererkennung
+## Identität
 
-Die Factory erhält die Staffbase Widget API und liest über getUserInformation() das aktuelle Profil. Verwendet werden ausschließlich ID, Vorname und Nachname. Im geöffneten Türchen wird die erkannte Person angezeigt. Ohne erkannte ID bleibt die Teilnahme gesperrt. Die Nutzerkennung trennt lokale Demo-Klicks unterschiedlicher Konten.
+`widgetApi.getUserInformation()` liefert Vorname und Nachname; `primaryEmail` wird übernommen, wenn es euer Staffbase-System mitliefert. Laut Staffbase-Dokumentation muss der Zugriff auf `primaryEmail` gegebenenfalls durch den Customer Success Manager freigeschaltet werden. Fehlt die E-Mail, fragt das Formular danach. Vorhandene Profildaten sind schreibgeschützt. Auf der eigenständigen GitHub-Seite werden beide Angaben abgefragt.
 
-## Grenzen dieser Version
+Die Übergabe ins eingebettete Dokument nutzt einen zufälligen Kanal und prüft die Absender-Window-Referenz. Dies schützt die Nachrichtenverarbeitung, ersetzt aber keine serverseitige Authentifizierung. Die Google-Anbindung erfasst Kontaktangaben und verifiziert keine Staffbase-Mitgliedschaft.
 
-Keine zentrale Teilnehmerliste, keine verbindliche Gewinnspielteilnahme. Lokale Demo-Klicks können durch Löschen des Browserspeichers zurückgesetzt werden. Datumskontrolle basiert auf der Gerätezeit. Die Redaktionsvorschau wird über eine Passwortabfrage geöffnet; der frühere URL-Parameter und die alte Widget-Vorschauoption schalten sie nicht mehr frei. Das Passwort wird nur als SHA-256-Hash ausgeliefert. Diese rein clientseitige Sperre ist manipulierbar und schützt keine vertraulichen Inhalte oder Verwaltungsrechte. Keine Backend-Authentifizierung implementiert. Für produktiven Einsatz benötigt der Kalender einen geschützten Dienst mit verifizierter Nutzeridentität, Datumsprüfung, eindeutiger Kombination aus Jahr/Türchen/Nutzer-ID und geschütztem Export für die Auslosung. Niemals SDK-Profildaten allein als vertrauenswürdige serverseitige Anmeldung akzeptieren.
+## Zentrale Tabelle
 
-## Technische Prüfung
+Einrichtung: [backend/README.md](backend/README.md). Die URL wird zentral aus `config.json` geladen. Die Tabelle selbst ist kein öffentlicher Teil des Widgets. Erst nach positiver Backend-Antwort bestätigt die Oberfläche die Anmeldung. Doppelklicks werden blockiert, Wiederholungen serverseitig pro E-Mail und Tag dedupliziert. Vorschau und echte Teilnahme sind getrennt.
 
-Bundle-Registrierung, Konfiguration, Factory und eingebettete JavaScript-Syntax lokal geprüft. Test in einer echten Staffbase-Sitzung und visuelle Prüfung auf Desktop und in der App stehen aus. Die bisherige eigenständige index.html bleibt als Demo erreichbar.
-
-Grundlage: https://developers.staffbase.com/frameworks/customwidget-development/ und https://developers.staffbase.com/tutorials/display-user-info-in-customwidget/
+Quelle: https://developers.staffbase.com/tutorials/display-user-info-in-customwidget/

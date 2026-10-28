@@ -1,26 +1,23 @@
 # EUROMASTER Adventskalender 2026
 
-Statischer, mobil angepasster Prototyp mit 24 Türchen.
+24 Türchen mit je einem ausgearbeiteten Weihnachtsinhalt und zusätzlicher Tagesverlosung. Enthalten sind Rezepte, Bastelanleitungen und kleine Adventsideen. Jeder Inhalt enthält Material/Zutaten, Schritte und Tipps.
 
-## Anzeigen
+Kalender: https://david24387.github.io/adventskalender/
 
-GitHub → Settings → Pages → Deploy from a branch → main → / (root) → Save.
-Nach erfolgreicher Pages-Veröffentlichung: https://david24387.github.io/adventskalender/
+## Teilnahme
 
-Vorschau mit frei wählbarem Dezembertag: https://david24387.github.io/adventskalender/?preview=1
-Die Vorschau ist ausdrücklich als Demo markiert und speichert getrennt vom normalen Kalender.
+Im Masternet übernimmt das Widget Vorname, Nachname und – soweit von Staffbase freigeschaltet – `primaryEmail`. Fehlende Angaben können ergänzt werden. Beim Klick auf **Jetzt teilnehmen** sendet es Name und E-Mail an die konfigurierte Apps-Script-Web-App. Dort wird eine zentrale Gesamtliste mit Tagesansichten in der vom Nutzer vorgegebenen Google-Tabelle geführt.
 
-## Verhalten
+**Die echte Teilnahme ist noch nicht aktiviert:** `config.json` enthält noch keine Web-App-URL. Der fertige Backend-Code und die Einrichtung stehen in [backend/README.md](backend/README.md). Der Tabellenlink allein ist kein Schreib-Endpunkt. Es wurden noch keine Blätter in Google angelegt und keine Teilnehmerdaten übertragen.
 
-- Ein Türchen öffnet ausschließlich am zugehörigen Tag im Dezember 2026, 00:00–23:59 Uhr, Europe/Berlin.
-- Vorher und nachher ist das Türchen gesperrt. Bei Tageswechsel schließt auch ein offener Dialog.
-- Teilnehmen merkt einen Demo-Klick pro Türchen im lokalen Browser vor. Es gibt keine zentrale Teilnehmerliste und keine echte Gewinnspielanmeldung.
-- Keine Namen oder Kontaktdaten werden erfasst.
+`config.json` steuert die Web-App-URL, Gewinne je Tag (`prizes`: z. B. Schlüssel `1` bis `24`), `termsUrl` und `privacyUrl`. Bis Gewinne hinterlegt sind, benennt die Oberfläche keinen erfundenen Preis.
 
-## Vor einem echten Gewinnspiel
+## Datum und Vorschau
 
-Eine zentrale Teilnahme-API, Identitätsprüfung und eine serverseitige Datumsvalidierung ergänzen. Die aktuelle Datumsprüfung verwendet die Gerätezeit und ist als Oberfläche gedacht; sie ist manipulierbar. Die Vorschau gibt keine Berechtigung für echte Teilnahmen.
+Ein Türchen öffnet nur am jeweiligen Datum im Dezember 2026, Europe/Berlin. Die API prüft den Tag unabhängig anhand ihrer Serverzeit. Bei Tageswechsel schließt ein offener Dialog. Der vorhandene Redaktionsbereich öffnet alle Inhalte zum Testen; Vorschauklicks werden niemals in die echte Tabelle geschrieben. Das Vorschaupasswort bleibt unverändert. Die Vorschau ist ein Oberflächenschutz, keine Teilnehmerverwaltung.
+
+Beide Widget-Dateien enthalten dieselbe Oberfläche wie `index.html`. Die bestehende Bundle-URL bleibt erhalten. Keine Namen oder E-Mail-Adressen werden lokal gespeichert oder in GitHub abgelegt.
 
 ## Prüfung
 
-JavaScript-Syntax, Berliner Mitternachtsgrenzen, taggenaue Freigabe und Jahresbeschränkung geprüft. Ein automatisierter Browser-/Layouttest konnte mangels installiertem Browser nicht ausgeführt werden.
+Lokal geprüft: JavaScript-Syntax, alle 24 Inhalte, Tagesfreigabe und Berliner Mitternacht, Vorschau ohne Netzwerkzugriff, Fehlerszenarien und Teilnahmebestätigung mit simuliertem DOM/API-Dienst, Widget-Registrierung sowie Backend-Datumsprüfung, Duplikatschutz und Schutz vor Tabellenformeln. Ein Browser-/Layouttest war mangels verfügbarem Browser nicht möglich. Echte Google-Bereitstellung und Masternet-Sitzung müssen nach der Verbindung separat geprüft werden.
