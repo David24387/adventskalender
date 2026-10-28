@@ -8,7 +8,7 @@ Kalender: https://david24387.github.io/adventskalender/
 
 Im Masternet übernimmt das Widget Vorname, Nachname und – soweit von Staffbase freigeschaltet – `primaryEmail`. Fehlende Angaben können ergänzt werden. Beim Klick auf **Jetzt teilnehmen** sendet es Name und E-Mail an die konfigurierte Apps-Script-Web-App. Dort wird eine zentrale Gesamtliste mit Tagesansichten in der vom Nutzer vorgegebenen Google-Tabelle geführt.
 
-**Die echte Teilnahme ist noch nicht aktiviert:** `config.json` enthält noch keine Web-App-URL. Der fertige Backend-Code und die Einrichtung stehen in [backend/README.md](backend/README.md). Der Tabellenlink allein ist kein Schreib-Endpunkt. Es wurden noch keine Blätter in Google angelegt und keine Teilnehmerdaten übertragen.
+Die bereitgestellte Google-Web-App ist in `config.json` hinterlegt. Der Kalender sendet echte Teilnahmen am jeweiligen Dezembertag an diesen Dienst. Die tatsächliche Speicherung in Google und die Erreichbarkeit aus Masternet müssen noch im Zielsystem bestätigt werden. Der Redaktionsbereich bleibt eine Vorschau ohne Schreibzugriff. Backend-Code und Einrichtung: [backend/README.md](backend/README.md).
 
 `config.json` steuert die Web-App-URL, Gewinne je Tag (`prizes`: z. B. Schlüssel `1` bis `24`), `termsUrl` und `privacyUrl`. Bis Gewinne hinterlegt sind, benennt die Oberfläche keinen erfundenen Preis.
 
