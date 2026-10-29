@@ -41,7 +41,7 @@ header{justify-content:flex-end;padding:10px 16px;border:0;background:transparen
 <section id="musicPanel" class="music-panel" aria-label="Weihnachtsmusik" hidden><div><strong id="songTitle"></strong><p id="musicStatus" role="status"></p></div><button id="musicToggle" type="button" class="music-toggle" aria-pressed="false">Weihnachtslied abspielen</button></section>
 <section class="content-card" aria-label="Dein Weihnachtsgeschenk"><h3 id="materialsTitle"></h3><p id="materials"></p><h3>So geht’s</h3><ol id="steps"></ol><p id="contentTip" class="tip"></p></section>
 <section class="giveaway" aria-labelledby="giveawayTitle"><div class="section-kicker">Zusätzlich für dich</div><h3 id="giveawayTitle">🎁 Deine tägliche Gewinnchance</h3><p id="prizeText"></p><p id="identity" role="status"></p>
-<form id="participationForm"><div class="identity-row"><div><label for="participantName">Dein Name</label><input id="participantName" name="name" autocomplete="name" maxlength="120" required></div><div><label for="participantEmail">Deine E-Mail-Adresse</label><input id="participantEmail" name="email" type="email" autocomplete="email" maxlength="254" required></div></div><p class="note">Mit „Jetzt teilnehmen“ werden Name und E-Mail für die heutige Verlosung in die zentrale Teilnehmerliste eingetragen. Pro E-Mail-Adresse ist eine Teilnahme je Tag möglich.</p><p class="note" id="legalLinks" hidden></p><button class="primary" id="participate" type="submit">Jetzt teilnehmen</button></form>
+<form id="participationForm"><div class="identity-row" id="identityFields"><div><label for="participantName">Dein Name</label><input id="participantName" name="name" autocomplete="name" maxlength="120" required></div><div><label for="participantEmail">Deine E-Mail-Adresse</label><input id="participantEmail" name="email" type="email" autocomplete="email" maxlength="254" required></div></div><p class="note">Mit „Jetzt teilnehmen“ werden Name und E-Mail für die heutige Verlosung in die zentrale Teilnehmerliste eingetragen. Pro E-Mail-Adresse ist eine Teilnahme je Tag möglich.</p><p class="note" id="legalLinks" hidden></p><button class="primary" id="participate" type="submit">Jetzt teilnehmen</button></form>
 <p id="feedback" class="feedback" role="status"></p><p class="note" id="serviceNote"></p></section></dialog>
 <dialog id="adminModal" aria-labelledby="adminTitle"><form id="adminForm"><button type="button" class="close" id="adminClose" aria-label="Schließen">×</button><div class="eyebrow" style="color:#8c612c">Redaktionsbereich</div><h2 id="adminTitle">Ein Blick hinter die Türchen.</h2><p>Mit dem Vorschau-Passwort kannst du alle 24 Türchen öffnen. Testklicks bleiben in der Vorschau und werden nicht an die Teilnehmerliste gesendet.</p><label for="adminPassword">Vorschau-Passwort</label><input id="adminPassword" type="password" autocomplete="current-password" required><button class="primary" type="submit">Vorschau freischalten</button><p id="adminError" role="status"></p><p class="note">Oberflächenschutz für die redaktionelle Vorschau. Keine geschützte Verwaltung von Teilnehmerdaten.</p></form></dialog><script>
 'use strict';
@@ -65,22 +65,25 @@ function render(){$('adminOpen').hidden=isPreview;$('adminExit').hidden=!isPrevi
  for(const day of DOOR_ORDER){const open=available(day,date);const past=date.year>YEAR||(date.year===YEAR&&(date.month>12||(date.month===12&&date.day>day)));const b=document.createElement('button');b.className='door'+(open?' today':past?' past':'');b.disabled=!open;b.setAttribute('aria-label',day+'. Dezember: '+(open?'Türchen öffnen':past?'bereits vorbei':'noch geschlossen'));const n=document.createElement('span');n.className='number';n.textContent=day;const label=document.createElement('span');label.className='label';label.textContent=open?'Türchen öffnen ↗':past?'Vorbei':'Ab '+day+'. Dezember';b.append(n,label);b.addEventListener('click',()=>openDoor(day));$('grid').append(b);}
  if($('modal').open&&!available(activeDay)){$('modal').close();activeDay=null;}
 }
-function participant(){return {name:$('participantName').value.trim(),email:$('participantEmail').value.trim().toLowerCase()};}
+function participant(){return staffbaseUser?.id?{name:[staffbaseUser.firstName,staffbaseUser.lastName].filter(Boolean).join(' ').trim(),email:String(staffbaseUser.email||'').trim().toLowerCase()}:{name:$('participantName').value.trim(),email:$('participantEmail').value.trim().toLowerCase()};}
+function identityReady(){const person=participant();return !staffbaseUser?.id||(person.name.length>=2&&/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(person.email));}
 function completionKey(day){return [YEAR,isPreview?'preview':'live',day,participant().email].join(':');}
 function validEndpoint(url){return typeof url==='string'&&/^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec$/.test(url);}
 function syncParticipation(){
  const done=completed.has(completionKey(activeDay));
  const beforeGiveaway=!isPreview&&!participationOpen(activeDay);
- $('participate').disabled=beforeGiveaway||submitting||done||(!isPreview&&!validEndpoint(config?.participationUrl));
- $('participate').textContent=beforeGiveaway?'Teilnahme ab '+(activeDay||1)+'. Dezember':submitting?'Wird eingetragen …':done?(isPreview?'Test erfolgreich ✓':'Du bist dabei ✓'):(isPreview?'Teilnahme testen':'Jetzt teilnehmen');
- $('serviceNote').textContent=beforeGiveaway?'Du kannst den Inhalt heute vorab ansehen. Die Teilnahme an der Verlosung ist erst am '+(activeDay||1)+'. Dezember 2026 möglich.':isPreview?'Redaktionsvorschau: Dieser Test schreibt keine Daten in die echte Tabelle.':configError?'Die Teilnahme konnte nicht geladen werden. Bitte lade den Kalender erneut.':!config?'Teilnahme wird geladen …':!validEndpoint(config.participationUrl)?'Die Verlosungsanmeldung ist noch nicht freigeschaltet. Dein Weihnachtsinhalt ist bereits für dich da.':'Deine Teilnahme zählt erst nach der Bestätigung. Die Liste ist nur für das Organisationsteam bestimmt.';
+ $('participate').disabled=!identityReady()||beforeGiveaway||submitting||done||(!isPreview&&!validEndpoint(config?.participationUrl));
+ $('participate').textContent=!identityReady()?'Automatische Profildaten fehlen':beforeGiveaway?'Teilnahme ab '+(activeDay||1)+'. Dezember':submitting?'Wird eingetragen …':done?(isPreview?'Test erfolgreich ✓':'Du bist dabei ✓'):(isPreview?'Teilnahme testen':'Jetzt teilnehmen');
+ $('serviceNote').textContent=!identityReady()?'Für die Teilnahme muss Staffbase Name und E-Mail automatisch übergeben. Bitte informiere das Masternet-Team; es ist keine manuelle Eingabe vorgesehen.':beforeGiveaway?'Du kannst den Inhalt heute vorab ansehen. Die Teilnahme an der Verlosung ist erst am '+(activeDay||1)+'. Dezember 2026 möglich.':isPreview?'Redaktionsvorschau: Dieser Test schreibt keine Daten in die echte Tabelle.':configError?'Die Teilnahme konnte nicht geladen werden. Bitte lade den Kalender erneut.':!config?'Teilnahme wird geladen …':!validEndpoint(config.participationUrl)?'Die Verlosungsanmeldung ist noch nicht freigeschaltet. Dein Weihnachtsinhalt ist bereits für dich da.':'Deine Teilnahme zählt erst nach der Bestätigung. Die Liste ist nur für das Organisationsteam bestimmt.';
  if(done){$('feedback').dataset.error='false';$('feedback').textContent=isPreview?'Test erfolgreich. Es wurden keine Daten übertragen.':'Deine Teilnahme für den '+activeDay+'. Dezember ist bestätigt. Viel Glück!';}
 }
 function updateIdentity(){
- const name=staffbaseUser?[staffbaseUser.firstName,staffbaseUser.lastName].filter(Boolean).join(' ').trim():'';
- $('participantName').readOnly=!!name;$('participantEmail').readOnly=!!staffbaseUser?.email;
- if(name)$('participantName').value=name;if(staffbaseUser?.email)$('participantEmail').value=staffbaseUser.email;
- $('identity').textContent=name?(staffbaseUser.email?'Angemeldet als '+name+'. Mit einem Klick bist du dabei.':'Hallo '+name+'! Bitte ergänze deine E-Mail-Adresse – dein Masternet-Profil liefert sie nicht mit.'):'Bitte trage Name und E-Mail-Adresse ein. Im Masternet werden verfügbare Profildaten automatisch übernommen.';
+ const automatic=!!staffbaseUser?.id,person=participant();
+ $('identityFields').hidden=automatic;
+ $('participantName').required=!automatic;$('participantEmail').required=!automatic;
+ $('participantName').readOnly=automatic;$('participantEmail').readOnly=automatic;
+ if(automatic){$('participantName').value=person.name;$('participantEmail').value=person.email;}
+ $('identity').textContent=automatic?(identityReady()?'Angemeldet als '+person.name+'. Mit einem Klick auf „Jetzt teilnehmen“ werden dein Name und deine E-Mail automatisch eingetragen.':'Hallo '+(person.name||'')+'! Die automatische Übernahme deiner Profildaten ist noch nicht vollständig freigeschaltet. Bitte informiere das Masternet-Team.'):'Bitte trage Name und E-Mail-Adresse ein. Im Masternet erfolgt die Teilnahme automatisch mit deinen freigegebenen Profildaten.';
  syncParticipation();
 }
 function renderPrize(){
@@ -117,7 +120,7 @@ function openDoor(day){if(!available(day))return;activeDay=day;const c=CONTENT[d
 $('participantEmail').addEventListener('input',()=>{$('feedback').textContent='';syncParticipation();});
 $('participationForm').addEventListener('submit',async event=>{
  event.preventDefault();const day=activeDay,preview=isPreview,person=participant();
- if(submitting||day===null||!available(day)||(!preview&&!participationOpen(day))||completed.has(completionKey(day)))return;
+ if(submitting||!identityReady()||day===null||!available(day)||(!preview&&!participationOpen(day))||completed.has(completionKey(day)))return;
  if(!$('participationForm').reportValidity())return;
  if(preview){completed.add(completionKey(day));syncParticipation();return;}
  if(!validEndpoint(config?.participationUrl)){syncParticipation();return;}

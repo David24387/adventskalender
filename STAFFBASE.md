@@ -19,3 +19,6 @@ Quelle: https://developers.staffbase.com/tutorials/display-user-info-in-customwi
 
 ## Medien
 Die Rezeptfotos und Schrittzeichnungen werden mit absoluten URLs vom bestehenden GitHub-Pages-Projekt geladen, damit sie auch im `srcdoc`-Iframe erscheinen. Beide Bundle-Dateien enthalten die aktualisierte Oberfläche. Das Widget erlaubt Autoplay für die eigenen Spieluhr-Melodien; falls eine übergeordnete Richtlinie den automatischen Start verhindert, ist die Wiedergabe über den sichtbaren Button vorgesehen. Musik stoppt beim Schließen des Türchens und beim Ausblenden des Dokuments.
+
+## Teilnahme ohne Eingabe
+Bei einem erkannten Staffbase-Profil blendet das Widget die Eingabefelder aus und verwendet ausschließlich dessen Namen und `primaryEmail`. Ohne vollständige Profildaten bleibt die Teilnahme gesperrt; es werden keine erfundenen E-Mail-Adressen übertragen. Für die Übergabe von `primaryEmail` muss der Staffbase Customer Success Manager die Option für Custom Widgets aktivieren. Sobald sie freigegeben ist, genügt am regulären Verlosungstag ein Klick. Auf der eigenständigen Webseite bleiben Name und E-Mail manuell ausfüllbar.
