@@ -32,3 +32,5 @@ Bei erkannten Staffbase-Profilen gibt es keine manuelle Namens-/E-Mail-Eingabe. 
 
 ## Eindeutige tägliche Musik
 Alle 24 Tage verwenden unterschiedliche Liedtitel und unterschiedliche Aufnahmen, ohne zyklischen Fallback. Die feste Zuordnung liegt in `music-catalog.json` und den `song`-Werten in `content.json`. Es sind vollständige Chor-, Band- und Instrumentalaufnahmen; keine Spieluhr-Synthese. Herkunft und Lizenz sind im Türchen und in `assets/music/README.md` angegeben.
+
+Musikauswahl: 24 Weihnachtslieder von 9 Interpreten/Ensembles, einschließlich Gitarren- und elektronischer Arrangements. Kein Interpret an zwei aufeinanderfolgenden Tagen. Keine allgemeinen Winter- oder Silvesterstücke.
