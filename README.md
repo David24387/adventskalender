@@ -24,8 +24,11 @@ Lokal geprüft: JavaScript-Syntax, alle 24 Inhalte, Tagesfreigabe und Berliner M
 
 
 ## Musik und geöffnete Türchen
-Musik gibt es ausschließlich im geöffneten Türchendialog, mit Abspielen/Pause und Quellenangabe. Jeden Tag wird eine der drei vollständigen Chor-/Bandaufnahmen gewählt. Alle Aufnahmen liegen lokal unter `assets/music/`; Rechte- und Herkunftsangaben stehen dort in `README.md`. Die Spieluhr-Synthese und der Player oberhalb des Kalenders wurden entfernt. Die Wiedergabe startet im Türchen-Klick, sofern der Browser das zulässt, und stoppt beim Schließen oder Ausblenden des Tabs.
+Musik gibt es ausschließlich im geöffneten Türchendialog, mit Abspielen/Pause und Quellenangabe. Jeden Tag wird die fest zugeordnete Aufnahme aus 24 unterschiedlichen Weihnachtsliedern gewählt. Alle Aufnahmen liegen lokal unter `assets/music/`; Rechte- und Herkunftsangaben stehen dort in `README.md`. Die Spieluhr-Synthese und der Player oberhalb des Kalenders wurden entfernt. Die Wiedergabe startet im Türchen-Klick, sofern der Browser das zulässt, und stoppt beim Schließen oder Ausblenden des Tabs.
 
 Geöffnete Türchen zeigen nach einer 650-ms-Klappanimation ein goldenes Fenster mit passendem Inhaltsmotiv und Tageszahl. Der Zustand wird ohne Namen oder E-Mail in `localStorage` unter `euromaster-advent-opened-2026` gespeichert, ist geräte-/browserbezogen und wird nicht zwischen Geräten synchronisiert. Die Redaktionsvorschau verwendet einen separaten Zustand nur im Arbeitsspeicher. Die Datumsfreigabe bleibt bestehen; bereits vergangene Türchen werden dadurch nicht erneut freigeschaltet. Reduzierte Bewegung wird berücksichtigt.
 
 Bei erkannten Staffbase-Profilen gibt es keine manuelle Namens-/E-Mail-Eingabe. Das Widget verwendet `primaryEmail`, alternativ `publicEmailAddress`. Fehlen beide, benötigt die automatische Teilnahme weiterhin die E-Mail-Freigabe durch Staffbase.
+
+## Eindeutige tägliche Musik
+Alle 24 Tage verwenden unterschiedliche Liedtitel und unterschiedliche Aufnahmen, ohne zyklischen Fallback. Die feste Zuordnung liegt in `music-catalog.json` und den `song`-Werten in `content.json`. Es sind vollständige Chor-, Band- und Instrumentalaufnahmen; keine Spieluhr-Synthese. Herkunft und Lizenz sind im Türchen und in `assets/music/README.md` angegeben.

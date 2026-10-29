@@ -16,7 +16,8 @@
       "src": "https://david24387.github.io/adventskalender/assets/recipe-01.webp?v=20261029",
       "alt": "Zimtsterne aus der Adventsküche – Serviervorschlag",
       "caption": "Serviervorschlag · KI-generiertes Bild"
-    }
+    },
+    "song": "jingle"
   },
   {
     "category": "Bastelanleitung",
@@ -48,7 +49,8 @@
         "src": "https://david24387.github.io/adventskalender/assets/craft-02-4.svg?v=20261029",
         "alt": "Den Stapel vorsichtig auffächern, erste und letzte Tüte zusammenkleben. Oben ein Loch machen und einen Faden befestigen."
       }
-    ]
+    ],
+    "song": "deck"
   },
   {
     "category": "Rezept",
@@ -68,7 +70,7 @@
       "alt": "Apfel-Orangen-Punsch für alle – Serviervorschlag",
       "caption": "Serviervorschlag · KI-generiertes Bild"
     },
-    "song": "jingle"
+    "song": "joy"
   },
   {
     "category": "Bastelanleitung",
@@ -100,7 +102,8 @@
         "src": "https://david24387.github.io/adventskalender/assets/craft-04-4.svg?v=20261029",
         "alt": "Namen oder Weihnachtsgruß ergänzen, lochen und mit Band am Geschenk befestigen."
       }
-    ]
+    ],
+    "song": "away"
   },
   {
     "category": "Rezept",
@@ -119,7 +122,8 @@
       "src": "https://david24387.github.io/adventskalender/assets/recipe-05.webp?v=20261029",
       "alt": "Weihnachtliche Bruchschokolade – Serviervorschlag",
       "caption": "Serviervorschlag · KI-generiertes Bild"
-    }
+    },
+    "song": "patapan"
   },
   {
     "category": "Adventsidee",
@@ -134,7 +138,7 @@
       "Überreiche deinen Gruß oder lege ihn an einen Ort, an dem ihn die Person sicher findet."
     ],
     "tip": "Ein konkreter Satz wirkt oft stärker als ein langes Gedicht: Danke, dass du damals …",
-    "song": "tree"
+    "song": "wenceslas"
   },
   {
     "category": "Rezept",
@@ -153,7 +157,8 @@
       "src": "https://david24387.github.io/adventskalender/assets/recipe-07.webp?v=20261029",
       "alt": "Bratäpfel mit Hafer-Zimt-Füllung – Serviervorschlag",
       "caption": "Serviervorschlag · KI-generiertes Bild"
-    }
+    },
+    "song": "nanita"
   },
   {
     "category": "Bastelanleitung",
@@ -185,7 +190,8 @@
         "src": "https://david24387.github.io/adventskalender/assets/craft-08-4.svg?v=20261029",
         "alt": "Papier langsam auffalten und glattstreichen. Mit ablösbaren Klebepunkten ans Fenster setzen."
       }
-    ]
+    ],
+    "song": "faithful"
   },
   {
     "category": "Rezept",
@@ -204,7 +210,8 @@
       "src": "https://david24387.github.io/adventskalender/assets/recipe-09.webp?v=20261029",
       "alt": "Saftige Kokosmakronen – Serviervorschlag",
       "caption": "Serviervorschlag · KI-generiertes Bild"
-    }
+    },
+    "song": "coventry"
   },
   {
     "category": "Bastelanleitung",
@@ -236,7 +243,8 @@
         "src": "https://david24387.github.io/adventskalender/assets/craft-10-4.svg?v=20261029",
         "alt": "Beide Formen ineinanderstecken. Bei Bedarf die Schlitze etwas erweitern und einen kleinen Papierstern aufsetzen."
       }
-    ]
+    ],
+    "song": "noel"
   },
   {
     "category": "Rezept",
@@ -255,7 +263,8 @@
       "src": "https://david24387.github.io/adventskalender/assets/recipe-11.webp?v=20261029",
       "alt": "Orangen-Zimt-Butter – Serviervorschlag",
       "caption": "Serviervorschlag · KI-generiertes Bild"
-    }
+    },
+    "song": "fum"
   },
   {
     "category": "Adventsidee",
@@ -270,7 +279,7 @@
       "Nimm dir bewusst Zeit für die ersten drei Lieder – vielleicht bei einer Tasse Punsch."
     ],
     "tip": "Die Mischung aus Klassikern, Lieblingsliedern und überraschenden Titeln macht die Liste besonders.",
-    "song": "jingle"
+    "song": "hark"
   },
   {
     "category": "Rezept",
@@ -289,7 +298,8 @@
       "src": "https://david24387.github.io/adventskalender/assets/recipe-13.webp?v=20261029",
       "alt": "Vanillekipferl für die Keksdose – Serviervorschlag",
       "caption": "Serviervorschlag · KI-generiertes Bild"
-    }
+    },
+    "song": "kings"
   },
   {
     "category": "Bastelanleitung",
@@ -321,7 +331,8 @@
         "src": "https://david24387.github.io/adventskalender/assets/craft-14-4.svg?v=20261029",
         "alt": "Vollständig trocknen lassen und ein LED-Teelicht hineinstellen."
       }
-    ]
+    ],
+    "song": "angels"
   },
   {
     "category": "Rezept",
@@ -340,7 +351,8 @@
       "src": "https://david24387.github.io/adventskalender/assets/recipe-15.webp?v=20261029",
       "alt": "Winterliches Birnenkompott – Serviervorschlag",
       "caption": "Serviervorschlag · KI-generiertes Bild"
-    }
+    },
+    "song": "bleak"
   },
   {
     "category": "Bastelanleitung",
@@ -372,7 +384,8 @@
         "src": "https://david24387.github.io/adventskalender/assets/craft-16-4.svg?v=20261029",
         "alt": "Linke und rechte Ecke hochnehmen und mit einem festen Doppelknoten verbinden. Anhänger befestigen."
       }
-    ]
+    ],
+    "song": "wassail"
   },
   {
     "category": "Rezept",
@@ -392,7 +405,7 @@
       "alt": "Heiße Schokolade mit Zimt – Serviervorschlag",
       "caption": "Serviervorschlag · KI-generiertes Bild"
     },
-    "song": "silent"
+    "song": "gesu"
   },
   {
     "category": "Bastelanleitung",
@@ -424,7 +437,8 @@
         "src": "https://david24387.github.io/adventskalender/assets/craft-18-4.svg?v=20261029",
         "alt": "Trocknen lassen und mit einem persönlichen Gruß ergänzen."
       }
-    ]
+    ],
+    "song": "bethlehem"
   },
   {
     "category": "Rezept",
@@ -443,7 +457,8 @@
       "src": "https://david24387.github.io/adventskalender/assets/recipe-19.webp?v=20261029",
       "alt": "Herzhafte Blätterteig-Tannen – Serviervorschlag",
       "caption": "Serviervorschlag · KI-generiertes Bild"
-    }
+    },
+    "song": "wish"
   },
   {
     "category": "Adventsidee",
@@ -458,7 +473,7 @@
       "Zurück zu Hause wartet ein warmes Getränk. Wer mag, erzählt jemandem von seinem schönsten Fund."
     ],
     "tip": "Im Dunkeln auf Sichtbarkeit achten und andere Menschen oder private Fenster nicht ungefragt fotografieren.",
-    "song": "tree"
+    "song": "midnight"
   },
   {
     "category": "Rezept",
@@ -477,7 +492,8 @@
       "src": "https://david24387.github.io/adventskalender/assets/recipe-21.webp?v=20261029",
       "alt": "Spekulatius-Dessert im Glas – Serviervorschlag",
       "caption": "Serviervorschlag · KI-generiertes Bild"
-    }
+    },
+    "song": "rose"
   },
   {
     "category": "Bastelanleitung",
@@ -509,7 +525,8 @@
         "src": "https://david24387.github.io/adventskalender/assets/craft-22-4.svg?v=20261029",
         "alt": "Trocknen lassen und an einem Regal oder einer Wand befestigen."
       }
-    ]
+    ],
+    "song": "housetop"
   },
   {
     "category": "Rezept",
@@ -528,7 +545,8 @@
       "src": "https://david24387.github.io/adventskalender/assets/recipe-23.webp?v=20261029",
       "alt": "Knuspriges Weihnachtsgranola – Serviervorschlag",
       "caption": "Serviervorschlag · KI-generiertes Bild"
-    }
+    },
+    "song": "tree"
   },
   {
     "category": "Adventsidee",
