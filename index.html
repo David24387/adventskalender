@@ -31,6 +31,7 @@ header{justify-content:flex-end;padding:10px 16px;border:0;background:transparen
 <main>
 <div class="preview" id="preview" hidden><strong>Redaktionsvorschau · alle Türchen offen · keine echte Teilnahme</strong><button id="adminLogout" class="admin-link">Vorschau beenden</button><label>Türchen testen: <select id="previewDay" aria-label="Vorschautag"></select></label></div>
 
+<section id="dailyMusicPanel" class="music-panel daily-music" aria-label="Weihnachtsmusik im Hintergrund"><div><strong id="dailySongTitle">Deine tägliche Weihnachtsmusik</strong><p id="dailyMusicStatus" role="status">Musik startet, sobald dein Browser die Wiedergabe erlaubt.</p></div><button id="dailyMusicToggle" type="button" class="music-toggle" aria-pressed="false">♫ Weihnachtslied abspielen</button></section>
 <span id="status" class="sr-only" aria-live="polite"></span>
 <div class="advent-frame"><div class="garland" aria-hidden="true"><span>✦</span><span>●</span><span>✧</span><span>●</span><span>✦</span><span>●</span><span>✧</span></div><section class="grid" id="grid" aria-label="24 Adventskalendertürchen vor dem EUROMASTER-Teamfoto"></section></div>
 
@@ -59,7 +60,7 @@ function currentDate(){return isPreview?{year:YEAR,month:12,day:Number($('previe
 function earlyAccess(date=berlinDate()){return date.year===2026&&date.month===10&&date.day===29;}
 function participationOpen(day){const date=berlinDate();return date.year===YEAR&&date.month===12&&date.day===day;}
 function available(day,date=currentDate()){if(isPreview)return Number.isInteger(day)&&day>=1&&day<=24;return (earlyAccess(date)&&day===1)||(date.year===YEAR&&date.month===12&&date.day===day);}
-function render(){$('adminOpen').hidden=isPreview;$('adminExit').hidden=!isPreview;const date=currentDate();const inSeason=date.year===YEAR&&date.month===12&&date.day<=24;
+function render(){syncDailyMusic();$('adminOpen').hidden=isPreview;$('adminExit').hidden=!isPreview;const date=currentDate();const inSeason=date.year===YEAR&&date.month===12&&date.day<=24;
  $('status').textContent=!isPreview&&earlyAccess(date)?'Heute kannst du Türchen 1 vorab öffnen. Die Verlosung startet am 1. Dezember.':inSeason?(isPreview?'Vorschau: Alle 24 Türchen sind geöffnet.':'Heute ist Türchen '+date.day+' für dich geöffnet.'):date.year<YEAR||(date.year===YEAR&&date.month<12)?'Die Vorfreude beginnt: Am 1. Dezember geht’s los.':'Unser Adventskalender ist beendet. Frohe Weihnachten!';
  $('grid').replaceChildren();
  for(const day of DOOR_ORDER){const open=available(day,date);const past=date.year>YEAR||(date.year===YEAR&&(date.month>12||(date.month===12&&date.day>day)));const b=document.createElement('button');b.className='door'+(open?' today':past?' past':'');b.disabled=!open;b.setAttribute('aria-label',day+'. Dezember: '+(open?'Türchen öffnen':past?'bereits vorbei':'noch geschlossen'));const n=document.createElement('span');n.className='number';n.textContent=day;const label=document.createElement('span');label.className='label';label.textContent=open?'Türchen öffnen ↗':past?'Vorbei':'Ab '+day+'. Dezember';b.append(n,label);b.addEventListener('click',()=>openDoor(day));$('grid').append(b);}
@@ -100,21 +101,24 @@ const SONGS={
  tree:{title:'O Tannenbaum · Spieluhr',beat:.36,notes:'G4:1 C5:1 C5:1 C5:2 D5:1 E5:1 E5:1 E5:2 E5:1 D5:1 E5:1 F5:2 B4:1 D5:1 C5:2 R:1 G4:1 C5:1 C5:1 C5:2 D5:1 E5:1 E5:1 E5:2 E5:1 D5:1 E5:1 F5:2 B4:1 D5:1 C5:3 G5:1 G5:1 E5:1 A5:2 G5:1 G5:1 F5:1 F5:2 F5:1 F5:1 D5:1 G5:2 F5:1 F5:1 E5:1 E5:2 G4:1 C5:1 C5:1 C5:2 D5:1 E5:1 E5:1 E5:2 E5:1 D5:1 E5:1 F5:2 B4:1 D5:1 C5:4'},
  silent:{title:'Stille Nacht · Spieluhr',beat:.46,notes:'G4:1.5 A4:.5 G4:1 E4:3 G4:1.5 A4:.5 G4:1 E4:3 D5:2 D5:1 B4:3 C5:2 C5:1 G4:3 A4:2 A4:1 C5:1.5 B4:.5 A4:1 G4:1.5 A4:.5 G4:1 E4:3 A4:2 A4:1 C5:1.5 B4:.5 A4:1 G4:1.5 A4:.5 G4:1 E4:3 D5:2 D5:1 F5:1.5 D5:.5 B4:1 C5:3 E5:3 C5:1 G4:1 E4:1 G4:1.5 F4:.5 D4:1 C4:4'}
 };
-let audioContext=null,musicNodes=[],musicTimer=null,musicPlaying=false,musicGeneration=0,doorSong=null;
-function musicButton(){const b=$('musicToggle');b.textContent=musicPlaying?'Ⅱ Musik pausieren':'♫ Weihnachtslied abspielen';b.setAttribute('aria-pressed',String(musicPlaying));}
-function stopDoorSong(){musicGeneration++;clearTimeout(musicTimer);musicTimer=null;for(const node of musicNodes){try{node.stop();}catch{}try{node.disconnect();}catch{}}musicNodes=[];musicPlaying=false;musicButton();if(doorSong)$('musicStatus').textContent='Instrumentale Spieluhr · zum Anhören auf Abspielen klicken.';}
-function setDoorSong(key){stopDoorSong();doorSong=SONGS[key]||null;$('musicPanel').hidden=!doorSong;if(!doorSong)return;$('songTitle').textContent=doorSong.title;playDoorSong();}
+let audioContext=null,musicNodes=[],musicTimer=null,musicPlaying=false,musicGeneration=0,doorSong=null,musicWanted=true,dailySongKey=null;
+function musicButton(){for(const id of ['musicToggle','dailyMusicToggle']){const b=$(id);b.textContent=musicPlaying?'Ⅱ Musik pausieren':'♫ Weihnachtslied abspielen';b.setAttribute('aria-pressed',String(musicPlaying));}}
+function musicMessage(text){$('musicStatus').textContent=text;$('dailyMusicStatus').textContent=text;}
+function stopDoorSong(){musicGeneration++;clearTimeout(musicTimer);musicTimer=null;for(const node of musicNodes){try{node.stop();}catch{}try{node.disconnect();}catch{}}musicNodes=[];musicPlaying=false;musicButton();if(doorSong)musicMessage('Instrumentale Weihnachtsmusik · zum Anhören auf Abspielen klicken.');}
+function setDoorSong(key){if(dailySongKey===key&&doorSong)return;stopDoorSong();dailySongKey=key;doorSong=SONGS[key]||null;$('musicPanel').hidden=!doorSong;if(!doorSong)return;$('songTitle').textContent=doorSong.title;$('dailySongTitle').textContent=doorSong.title+' · Musik des Tages';if(musicWanted)playDoorSong();}
+function syncDailyMusic(){const date=currentDate();const day=earlyAccess(date)&&!isPreview?1:Math.max(1,Math.min(24,date.day||1));setDoorSong(CONTENT[day-1].song||['tree','jingle','silent'][(day-1)%3]);}
+function toggleMusic(){musicWanted=!musicPlaying;if(musicWanted)playDoorSong();else stopDoorSong();}
 function frequency(note){const match=/^([A-G])(#?)(\d)$/.exec(note);if(!match)return 0;const semitone={C:0,D:2,E:4,F:5,G:7,A:9,B:11}[match[1]]+(match[2]?1:0);return 440*Math.pow(2,(((Number(match[3])+1)*12+semitone)-69)/12);}
-async function playDoorSong(){if(!doorSong)return;stopDoorSong();const ticket=musicGeneration,song=doorSong;try{const Audio=window.AudioContext||window.webkitAudioContext;if(!Audio)throw Error('Audio unavailable');if(!audioContext||audioContext.state==='closed')audioContext=new Audio();$('musicStatus').textContent='Musik wird gestartet …';const unlock=audioContext.resume();if(audioContext.state==='running')start();else{const guard=setTimeout(()=>{if(ticket===musicGeneration&&!musicPlaying)$('musicStatus').textContent='Zum Starten auf „Weihnachtslied abspielen“ klicken.';},1500);try{await unlock;}finally{clearTimeout(guard);}start();}
- function start(){if(ticket!==musicGeneration||song!==doorSong||audioContext.state!=='running')return;let when=audioContext.currentTime+.04;for(const entry of song.notes.split(' ')){const [note,length]=entry.split(':'),duration=Number(length)*song.beat,f=frequency(note);if(f){const oscillator=audioContext.createOscillator(),gain=audioContext.createGain();oscillator.type='sine';oscillator.frequency.value=f;gain.gain.setValueAtTime(0,when);gain.gain.linearRampToValueAtTime(.11,when+.012);gain.gain.exponentialRampToValueAtTime(.001,when+Math.max(.06,duration*.94));oscillator.connect(gain);gain.connect(audioContext.destination);oscillator.start(when);oscillator.stop(when+duration);musicNodes.push(oscillator);}when+=duration;}musicPlaying=true;musicButton();$('musicStatus').textContent='Leise Weihnachtsmusik läuft · stoppt beim Schließen des Türchens.';musicTimer=setTimeout(()=>{if(ticket===musicGeneration)stopDoorSong();},Math.ceil((when-audioContext.currentTime)*1000)+100);}
- }catch{if(ticket===musicGeneration){musicPlaying=false;musicButton();$('musicStatus').textContent='Automatischer Start nicht möglich. Bitte auf „Weihnachtslied abspielen“ klicken.';}}}
+async function playDoorSong(){if(!doorSong)return;stopDoorSong();const ticket=musicGeneration,song=doorSong;try{const Audio=window.AudioContext||window.webkitAudioContext;if(!Audio)throw Error('Audio unavailable');if(!audioContext||audioContext.state==='closed')audioContext=new Audio();musicMessage('Musik wird gestartet …');const unlock=audioContext.resume();if(audioContext.state==='running')start();else{const guard=setTimeout(()=>{if(ticket===musicGeneration&&!musicPlaying)musicMessage('Zum Starten auf „Weihnachtslied abspielen“ klicken.');},1500);try{await unlock;}finally{clearTimeout(guard);}start();}
+ function start(){if(ticket!==musicGeneration||song!==doorSong||audioContext.state!=='running')return;let when=audioContext.currentTime+.04;for(const entry of song.notes.split(' ')){const [note,length]=entry.split(':'),duration=Number(length)*song.beat,f=frequency(note);if(f){const oscillator=audioContext.createOscillator(),gain=audioContext.createGain();oscillator.type='sine';oscillator.frequency.value=f;gain.gain.setValueAtTime(0,when);gain.gain.linearRampToValueAtTime(.11,when+.012);gain.gain.exponentialRampToValueAtTime(.001,when+Math.max(.06,duration*.94));oscillator.connect(gain);gain.connect(audioContext.destination);oscillator.start(when);oscillator.stop(when+duration);musicNodes.push(oscillator);}when+=duration;}musicPlaying=true;musicButton();musicMessage('Weihnachtsmusik läuft leise im Hintergrund. Du kannst sie jederzeit pausieren.');musicTimer=setTimeout(()=>{if(ticket===musicGeneration){stopDoorSong();musicTimer=setTimeout(()=>{if(musicWanted&&!document.hidden)playDoorSong();},2000);}},Math.ceil((when-audioContext.currentTime)*1000)+100);}
+ }catch{if(ticket===musicGeneration){musicPlaying=false;musicButton();musicMessage('Automatischer Start nicht möglich. Bitte auf „Weihnachtslied abspielen“ klicken.');}}}
 
 function openDoor(day){if(!available(day))return;activeDay=day;const c=CONTENT[day-1];
  $('modalDate').textContent=day+'. Dezember · '+c.category;$('contentIcon').textContent=c.icon;$('modalTitle').textContent=c.title;$('modalIntro').textContent=c.intro;
  $('materialsTitle').textContent=c.category==='Rezept'?'Das brauchst du an Zutaten':'Das brauchst du';$('materials').textContent=c.materials;
  $('recipeFigure').hidden=!c.image;if(c.image){$('recipeImage').src=c.image.src;$('recipeImage').alt=c.image.alt;$('recipeCaption').textContent=c.image.caption||'';}else{$('recipeImage').removeAttribute('src');}
  $('steps').className=c.stepImages?'illustrated':'';$('steps').replaceChildren(...c.steps.map((step,index)=>{const li=document.createElement('li');if(c.stepImages?.[index]){const img=document.createElement('img');img.className='step-image';img.src=c.stepImages[index].src;img.alt=c.stepImages[index].alt;img.width=520;img.height=325;li.append(img);const description=document.createElement('span');description.className='step-text';const number=document.createElement('strong');number.className='step-number';number.textContent=(index+1)+'. ';description.append(number,document.createTextNode(step));li.append(description);}else li.textContent=step;return li;}));$('contentTip').textContent=c.tip;
- setDoorSong(c.song);
+ $('musicPanel').hidden=!doorSong;
  $('feedback').textContent='';renderPrize();updateIdentity();$('modal').showModal();$('modal').scrollTop=0;
 }
 $('participantEmail').addEventListener('input',()=>{$('feedback').textContent='';syncParticipation();});
@@ -139,10 +143,10 @@ fetch(CONFIG_URL,{cache:'no-store',credentials:'omit'}).then(r=>{if(!r.ok)throw 
 /* Das Widget setzt diesen Kanal erst beim Einbetten. Keine Profildaten aus beliebigen Nachrichten übernehmen. */
 const IDENTITY_CHANNEL=null;
 window.addEventListener('message',event=>{if(!IDENTITY_CHANNEL||event.source!==parent||event.data?.channel!==IDENTITY_CHANNEL)return;staffbaseUser=event.data.user;updateIdentity();});
-$('modal').addEventListener('close',stopDoorSong);
-$('modal').addEventListener('cancel',stopDoorSong);
-$('musicToggle').addEventListener('click',()=>{if(musicPlaying)stopDoorSong();else playDoorSong();});
-document.addEventListener('visibilitychange',()=>{if(document.hidden)stopDoorSong();});
+$('musicToggle').addEventListener('click',toggleMusic);
+$('dailyMusicToggle').addEventListener('click',toggleMusic);
+document.addEventListener('pointerdown',event=>{if(!event.target.closest('#musicToggle, #dailyMusicToggle')&&musicWanted&&!musicPlaying)playDoorSong();});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)stopDoorSong();else if(musicWanted)playDoorSong();});
 window.addEventListener('pagehide',stopDoorSong);
 $('close').addEventListener('click',()=>$('modal').close());
 $('modal').addEventListener('click',e=>{if(e.target===$('modal')){const r=$('modal').getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)$('modal').close();}});
@@ -151,7 +155,7 @@ $('adminOpen').addEventListener('click',()=>{$('adminModal').showModal();$('admi
 $('adminClose').addEventListener('click',()=>$('adminModal').close());
 $('adminForm').addEventListener('submit',async event=>{event.preventDefault();try{const digest=await crypto.subtle.digest('SHA-256',new TextEncoder().encode($('adminPassword').value));const hash=Array.from(new Uint8Array(digest),b=>b.toString(16).padStart(2,'0')).join('');if(hash!=='ff5c66c73fc29fcb5a15c02276080913f4d4fcafa0156dc944a78f87e2bff00f'){$('adminError').textContent='Das Passwort stimmt nicht.';return;}isPreview=true;$('preview').hidden=false;if(!$('previewDay').options.length)for(let d=1;d<=24;d++){const o=document.createElement('option');o.value=d;o.textContent=d+'. Dezember';$('previewDay').append(o);}$('adminPassword').value='';$('adminError').textContent='';$('adminModal').close();render();}catch{$('adminError').textContent='Vorschau konnte nicht geöffnet werden. Bitte über HTTPS aufrufen.';}});
 $('previewDay').addEventListener('change',render);
-function leaveEditorial(){stopDoorSong();isPreview=false;$('preview').hidden=true;$('modal').close();$('adminModal').close();activeDay=null;render();$('adminOpen').focus();}
+function leaveEditorial(){isPreview=false;$('preview').hidden=true;$('modal').close();$('adminModal').close();activeDay=null;render();$('adminOpen').focus();}
 $('adminLogout').addEventListener('click',leaveEditorial);
 $('adminExit').addEventListener('click',leaveEditorial);
 render();let lastDate=JSON.stringify(currentDate());setInterval(()=>{const next=JSON.stringify(currentDate());if(next!==lastDate){lastDate=next;render();}},1000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)render();});
