@@ -58,24 +58,24 @@ let activeDay=null;
 function berlinDate(date=new Date()) {const p=Object.fromEntries(new Intl.DateTimeFormat('en-CA',{timeZone:'Europe/Berlin',year:'numeric',month:'2-digit',day:'2-digit'}).formatToParts(date).map(x=>[x.type,x.value]));return {year:+p.year,month:+p.month,day:+p.day};}
 function currentDate(){return isPreview?{year:YEAR,month:12,day:Number($('previewDay').value)}:berlinDate();}
 function earlyAccess(date=berlinDate()){return date.year===2026&&date.month===10&&date.day===29;}
-function participationOpen(day){const date=berlinDate();return date.year===YEAR&&date.month===12&&date.day===day;}
+function participationOpen(day){const date=berlinDate();return (earlyAccess(date)&&day===1)||(date.year===YEAR&&date.month===12&&date.day===day);}
 function available(day,date=currentDate()){if(isPreview)return Number.isInteger(day)&&day>=1&&day<=24;return (earlyAccess(date)&&day===1)||(date.year===YEAR&&date.month===12&&date.day===day);}
 function render(){syncDailyMusic();$('adminOpen').hidden=isPreview;$('adminExit').hidden=!isPreview;const date=currentDate();const inSeason=date.year===YEAR&&date.month===12&&date.day<=24;
- $('status').textContent=!isPreview&&earlyAccess(date)?'Heute kannst du Türchen 1 vorab öffnen. Die Verlosung startet am 1. Dezember.':inSeason?(isPreview?'Vorschau: Alle 24 Türchen sind geöffnet.':'Heute ist Türchen '+date.day+' für dich geöffnet.'):date.year<YEAR||(date.year===YEAR&&date.month<12)?'Die Vorfreude beginnt: Am 1. Dezember geht’s los.':'Unser Adventskalender ist beendet. Frohe Weihnachten!';
+ $('status').textContent=!isPreview&&earlyAccess(date)?'Heute kannst du Türchen 1 vorab öffnen. Testteilnahmen werden heute in die Teilnehmerliste übertragen.':inSeason?(isPreview?'Vorschau: Alle 24 Türchen sind geöffnet.':'Heute ist Türchen '+date.day+' für dich geöffnet.'):date.year<YEAR||(date.year===YEAR&&date.month<12)?'Die Vorfreude beginnt: Am 1. Dezember geht’s los.':'Unser Adventskalender ist beendet. Frohe Weihnachten!';
  $('grid').replaceChildren();
  for(const day of DOOR_ORDER){const open=available(day,date);const past=date.year>YEAR||(date.year===YEAR&&(date.month>12||(date.month===12&&date.day>day)));const b=document.createElement('button');b.className='door'+(open?' today':past?' past':'');b.disabled=!open;b.setAttribute('aria-label',day+'. Dezember: '+(open?'Türchen öffnen':past?'bereits vorbei':'noch geschlossen'));const n=document.createElement('span');n.className='number';n.textContent=day;const label=document.createElement('span');label.className='label';label.textContent=open?'Türchen öffnen ↗':past?'Vorbei':'Ab '+day+'. Dezember';b.append(n,label);b.addEventListener('click',()=>openDoor(day));$('grid').append(b);}
  if($('modal').open&&!available(activeDay)){$('modal').close();activeDay=null;}
 }
 function participant(){return staffbaseUser?.id?{name:[staffbaseUser.firstName,staffbaseUser.lastName].filter(Boolean).join(' ').trim(),email:String(staffbaseUser.email||'').trim().toLowerCase()}:{name:$('participantName').value.trim(),email:$('participantEmail').value.trim().toLowerCase()};}
 function identityReady(){const person=participant();return !staffbaseUser?.id||(person.name.length>=2&&/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(person.email));}
-function completionKey(day){return [YEAR,isPreview?'preview':'live',day,participant().email].join(':');}
+function completionKey(day){return [YEAR,isPreview?'preview':earlyAccess()?'test-2026-10-29':'live',day,participant().email].join(':');}
 function validEndpoint(url){return typeof url==='string'&&/^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec$/.test(url);}
 function syncParticipation(){
  const done=completed.has(completionKey(activeDay));
  const beforeGiveaway=!isPreview&&!participationOpen(activeDay);
  $('participate').disabled=!identityReady()||beforeGiveaway||submitting||done||(!isPreview&&!validEndpoint(config?.participationUrl));
  $('participate').textContent=!identityReady()?'Automatische Profildaten fehlen':beforeGiveaway?'Teilnahme ab '+(activeDay||1)+'. Dezember':submitting?'Wird eingetragen …':done?(isPreview?'Test erfolgreich ✓':'Du bist dabei ✓'):(isPreview?'Teilnahme testen':'Jetzt teilnehmen');
- $('serviceNote').textContent=!identityReady()?'Für die Teilnahme muss Staffbase Name und E-Mail automatisch übergeben. Bitte informiere das Masternet-Team; es ist keine manuelle Eingabe vorgesehen.':beforeGiveaway?'Du kannst den Inhalt heute vorab ansehen. Die Teilnahme an der Verlosung ist erst am '+(activeDay||1)+'. Dezember 2026 möglich.':isPreview?'Redaktionsvorschau: Dieser Test schreibt keine Daten in die echte Tabelle.':configError?'Die Teilnahme konnte nicht geladen werden. Bitte lade den Kalender erneut.':!config?'Teilnahme wird geladen …':!validEndpoint(config.participationUrl)?'Die Verlosungsanmeldung ist noch nicht freigeschaltet. Dein Weihnachtsinhalt ist bereits für dich da.':'Deine Teilnahme zählt erst nach der Bestätigung. Die Liste ist nur für das Organisationsteam bestimmt.';
+ $('serviceNote').textContent=!isPreview&&earlyAccess()&&identityReady()?'Testbetrieb: Dein Klick trägt Name und E-Mail in die Gesamtliste ein. Testeinträge tragen das Datum 29.10.2026 und zählen nicht zur Dezemberverlosung.':!identityReady()?'Für die Teilnahme muss Staffbase Name und E-Mail automatisch übergeben. Bitte informiere das Masternet-Team; es ist keine manuelle Eingabe vorgesehen.':beforeGiveaway?'Du kannst den Inhalt heute vorab ansehen. Die Teilnahme an der Verlosung ist erst am '+(activeDay||1)+'. Dezember 2026 möglich.':isPreview?'Redaktionsvorschau: Dieser Test schreibt keine Daten in die echte Tabelle.':configError?'Die Teilnahme konnte nicht geladen werden. Bitte lade den Kalender erneut.':!config?'Teilnahme wird geladen …':!validEndpoint(config.participationUrl)?'Die Verlosungsanmeldung ist noch nicht freigeschaltet. Dein Weihnachtsinhalt ist bereits für dich da.':'Deine Teilnahme zählt erst nach der Bestätigung. Die Liste ist nur für das Organisationsteam bestimmt.';
  if(done){$('feedback').dataset.error='false';$('feedback').textContent=isPreview?'Test erfolgreich. Es wurden keine Daten übertragen.':'Deine Teilnahme für den '+activeDay+'. Dezember ist bestätigt. Viel Glück!';}
 }
 function updateIdentity(){
@@ -123,7 +123,7 @@ function openDoor(day){if(!available(day))return;activeDay=day;const c=CONTENT[d
 }
 $('participantEmail').addEventListener('input',()=>{$('feedback').textContent='';syncParticipation();});
 $('participationForm').addEventListener('submit',async event=>{
- event.preventDefault();const day=activeDay,preview=isPreview,person=participant();
+ event.preventDefault();const day=activeDay,preview=isPreview,person=participant(),entryKey=completionKey(activeDay);
  if(submitting||!identityReady()||day===null||!available(day)||(!preview&&!participationOpen(day))||completed.has(completionKey(day)))return;
  if(!$('participationForm').reportValidity())return;
  if(preview){completed.add(completionKey(day));syncParticipation();return;}
@@ -134,8 +134,8 @@ $('participationForm').addEventListener('submit',async event=>{
   const response=await fetch(config.participationUrl,{method:'POST',redirect:'follow',credentials:'omit',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({campaign:config.campaign,year:YEAR,day,name:person.name,email:person.email,preview:false}),signal:controller.signal});
   if(!response.ok)throw Error('network');const result=await response.json();
   if(!result.ok)throw Error(result.code||'server');
-  completed.add([YEAR,'live',day,person.email].join(':'));
-  if(activeDay===day&&isPreview===preview){$('feedback').dataset.error='false';$('feedback').textContent=result.duplicate?'Du stehst für heute bereits auf der Teilnehmerliste. Viel Glück!':'Deine Teilnahme wurde in die Tagesliste eingetragen. Viel Glück!';}
+  completed.add(entryKey);
+  if(activeDay===day&&isPreview===preview){$('feedback').dataset.error='false';$('feedback').textContent=result.test?(result.duplicate?'Deine Testteilnahme ist bereits in der Gesamtliste eingetragen.':'Deine Testteilnahme wurde in die Gesamtliste eingetragen.') :result.duplicate?'Du stehst für heute bereits auf der Teilnehmerliste. Viel Glück!':'Deine Teilnahme wurde in die Tagesliste eingetragen. Viel Glück!';}
  }catch(error){if(activeDay===day&&isPreview===preview){$('feedback').dataset.error='true';$('feedback').textContent=error.message==='closed'?'Die Teilnahme für dieses Türchen ist beendet.':error.message==='invalid'?'Bitte prüfe Name und E-Mail-Adresse.':'Die Teilnahme konnte nicht bestätigt werden. Bitte versuche es erneut. Falls sie bereits eingetragen wurde, entsteht keine zweite Teilnahme.';}}
  finally{clearTimeout(timer);submitting=false;syncParticipation();}
 });
