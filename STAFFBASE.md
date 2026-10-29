@@ -16,3 +16,6 @@ Die Übergabe ins eingebettete Dokument nutzt einen zufälligen Kanal und prüft
 Einrichtung: [backend/README.md](backend/README.md). Die URL wird zentral aus `config.json` geladen. Die Tabelle selbst ist kein öffentlicher Teil des Widgets. Erst nach positiver Backend-Antwort bestätigt die Oberfläche die Anmeldung. Doppelklicks werden blockiert, Wiederholungen serverseitig pro E-Mail und Tag dedupliziert. Vorschau und echte Teilnahme sind getrennt.
 
 Quelle: https://developers.staffbase.com/tutorials/display-user-info-in-customwidget/
+
+## Medien
+Die Rezeptfotos und Schrittzeichnungen werden mit absoluten URLs vom bestehenden GitHub-Pages-Projekt geladen, damit sie auch im `srcdoc`-Iframe erscheinen. Beide Bundle-Dateien enthalten die aktualisierte Oberfläche. Das Widget erlaubt Autoplay für die eigenen Spieluhr-Melodien; falls eine übergeordnete Richtlinie den automatischen Start verhindert, ist die Wiedergabe über den sichtbaren Button vorgesehen. Musik stoppt beim Schließen des Türchens und beim Ausblenden des Dokuments.
