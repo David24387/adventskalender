@@ -17,11 +17,10 @@ Einrichtung: [backend/README.md](backend/README.md). Die URL wird zentral aus `c
 
 Quelle: https://developers.staffbase.com/tutorials/display-user-info-in-customwidget/
 
-## Medien
-Die Rezeptfotos und Schrittzeichnungen werden mit absoluten URLs vom bestehenden GitHub-Pages-Projekt geladen, damit sie auch im `srcdoc`-Iframe erscheinen. Beide Bundle-Dateien enthalten die aktualisierte Oberfläche. Das Widget erlaubt Autoplay für die eigenen Spieluhr-Melodien; falls eine übergeordnete Richtlinie den automatischen Start verhindert, ist die Wiedergabe über den sichtbaren Button vorgesehen. Musik stoppt beim Schließen des Türchens und beim Ausblenden des Dokuments.
 
-## Teilnahme ohne Eingabe
-Bei einem erkannten Staffbase-Profil blendet das Widget die Eingabefelder aus und verwendet dessen Namen und bevorzugt `primaryEmail`, alternativ die vorhandene Profiladresse `publicEmailAddress`. Ohne vollständige Profildaten bleibt die Teilnahme gesperrt; es werden keine erfundenen E-Mail-Adressen übertragen. Für die Übergabe von `primaryEmail` muss der Staffbase Customer Success Manager die Option für Custom Widgets aktivieren. Sobald sie freigegeben ist, genügt am regulären Verlosungstag ein Klick. Auf der eigenständigen Webseite bleiben Name und E-Mail manuell ausfüllbar.
+## Musik und geöffnete Türchen
+Musik gibt es ausschließlich im geöffneten Türchendialog, mit Abspielen/Pause und Quellenangabe. Jeden Tag wird eine der drei vollständigen Chor-/Bandaufnahmen gewählt. Alle Aufnahmen liegen lokal unter `assets/music/`; Rechte- und Herkunftsangaben stehen dort in `README.md`. Die Spieluhr-Synthese und der Player oberhalb des Kalenders wurden entfernt. Die Wiedergabe startet im Türchen-Klick, sofern der Browser das zulässt, und stoppt beim Schließen oder Ausblenden des Tabs.
 
-## Tägliche Hintergrundmusik
-Ein Player oberhalb des Kalenders wählt jeden Tag eine der drei vorhandenen instrumentalen Weihnachtsmelodien. Die Musik läuft nach dem Ende mit einer kurzen Pause erneut an und bleibt beim Öffnen/Schließen von Türchen erhalten. Player und Türchendialog bieten beide Pause/Abspielen. Eine manuelle Pause bleibt beim Wechseln der Türchen bestehen. Ausblenden des Dokuments stoppt die Musik; bei Rückkehr wird sie fortgesetzt, sofern sie nicht manuell pausiert wurde. Der automatische Start ist browserabhängig; die erste Interaktion oder der Abspielknopf kann die Audiofreigabe erteilen.
+Geöffnete Türchen zeigen nach einer 650-ms-Klappanimation ein goldenes Fenster mit passendem Inhaltsmotiv und Tageszahl. Der Zustand wird ohne Namen oder E-Mail in `localStorage` unter `euromaster-advent-opened-2026` gespeichert, ist geräte-/browserbezogen und wird nicht zwischen Geräten synchronisiert. Die Redaktionsvorschau verwendet einen separaten Zustand nur im Arbeitsspeicher. Die Datumsfreigabe bleibt bestehen; bereits vergangene Türchen werden dadurch nicht erneut freigeschaltet. Reduzierte Bewegung wird berücksichtigt.
+
+Bei erkannten Staffbase-Profilen gibt es keine manuelle Namens-/E-Mail-Eingabe. Das Widget verwendet `primaryEmail`, alternativ `publicEmailAddress`. Fehlen beide, benötigt die automatische Teilnahme weiterhin die E-Mail-Freigabe durch Staffbase.
