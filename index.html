@@ -42,6 +42,7 @@ header{justify-content:flex-end;padding:10px 16px;border:0;background:transparen
 @keyframes gift-glow{50%{box-shadow:0 0 22px #d4ae4b80;background:#fff9dc}}
 @keyframes snow-celebrate{from{opacity:0;transform:translate(0,0) scale(.4)}30%{opacity:1}to{opacity:0;transform:translate(var(--x),-90px) rotate(100deg) scale(1.2)}}
 @media(prefers-reduced-motion:reduce){#participate:before,.christmas-success,.participation-spark{animation:none!important}.participation-spark{display:none}}
+.calendar-celebration{position:fixed;inset:0;z-index:2147483647;overflow:hidden;pointer-events:none}.calendar-celebration span{position:absolute;top:-50px;color:#fff4c1;text-shadow:0 0 8px #d6a62c,0 2px 4px #174b91;animation:calendar-snowfall 2.8s ease-in both}@keyframes calendar-snowfall{0%{opacity:0;transform:translate(0,-30px) rotate(0)}12%{opacity:1}85%{opacity:1}100%{opacity:0;transform:translate(var(--drift),110vh) rotate(240deg)}}@media(prefers-reduced-motion:reduce){.calendar-celebration{display:none}}
 </style>
 <header><button id="adminExit" class="admin-top" hidden>✕ Redaktionsbereich verlassen</button><button id="adminOpen" class="admin-top">🔑 Redaktionsbereich</button></header>
 <main>
@@ -93,7 +94,13 @@ function participant(){return staffbaseUser?.id?{name:[staffbaseUser.firstName,s
 function identityReady(){const person=participant();return !staffbaseUser?.id||(person.name.length>=2&&/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(person.email));}
 function completionKey(day){return [YEAR,isPreview?'preview':earlyAccess()?'test-2026-11-02':'live',day,participant().email].join(':');}
 function validEndpoint(url){return typeof url==='string'&&/^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec$/.test(url);}
-function celebrateParticipation(){const host=$('feedback');host.classList.remove('christmas-success');void host.offsetWidth;host.classList.add('christmas-success');for(let i=0;i<14;i++){const flake=document.createElement('span');flake.className='participation-spark';flake.textContent=i%3?'❄':'✦';flake.style.setProperty('--x',((i-6.5)*18)+'px');flake.style.setProperty('--delay',(i%4)*.07+'s');host.append(flake);setTimeout(()=>flake.remove(),1800);}}
+function celebrateParticipation(){
+ const feedback=$('feedback');feedback.classList.remove('christmas-success');void feedback.offsetWidth;feedback.classList.add('christmas-success');
+ document.querySelectorAll('.calendar-celebration').forEach(el=>el.remove());
+ const overlay=document.createElement('div');overlay.className='calendar-celebration';overlay.setAttribute('aria-hidden','true');
+ for(let i=0;i<65;i++){const flake=document.createElement('span');flake.textContent=i%4?'❄':'✦';flake.style.cssText='left:'+((i*37)%100)+'%;font-size:'+(14+(i%5)*7)+'px;animation-delay:'+(i%9)*.08+'s;--drift:'+((i%2?1:-1)*(20+i%7*12))+'px';overlay.append(flake);}
+ $('modal').append(overlay);setTimeout(()=>overlay.remove(),3600);
+}
 function syncParticipation(){
  $('participate').classList.toggle('is-saving',submitting);$('participate').setAttribute('aria-busy',String(submitting));
  const done=completed.has(completionKey(activeDay));
