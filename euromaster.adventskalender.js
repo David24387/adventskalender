@@ -12,17 +12,19 @@ const factory = (BaseBlockClass, widgetApi) => class extends BaseBlockClass {
   const channel=crypto.randomUUID();
   const frame=document.createElement('iframe');
   frame.title='EUROMASTER Adventskalender';
-  frame.style.cssText='display:block;width:100%;height:1380px;border:0;background:#f4f7fb;border-radius:16px';
+  frame.style.cssText='display:block;width:100%;height:1px;border:0;background:transparent;border-radius:16px';
   frame.setAttribute('sandbox','allow-scripts allow-same-origin');
   frame.setAttribute('allow','autoplay');
   frame.srcdoc=TEMPLATE.replace('const IDENTITY_CHANNEL=null;', 'const IDENTITY_CHANNEL='+JSON.stringify(channel)+';');
   frame.onload=async()=>{
+   try { const doc=frame.contentDocument;const resize=()=>{const height=Math.ceil(doc.body.getBoundingClientRect().height);if(height>0&&frame.style.height!==height+'px')frame.style.height=height+'px';};const observer=new ResizeObserver(resize);observer.observe(doc.body);frame._adventObserver=observer;resize();doc.fonts?.ready.then(resize); }catch{}
+
    try { const profile=await widgetApi.getUserInformation();
     if(!frame.isConnected)return;
     const user=profile&&profile.id?{id:profile.id,firstName:profile.firstName||'',lastName:profile.lastName||'',email:profile.primaryEmail||profile.publicEmailAddress||''}:null;
     frame.contentWindow.postMessage({channel,user},location.origin);
    } catch { if(frame.isConnected)frame.contentWindow.postMessage({channel,user:null},location.origin); }
-   try { const doc=frame.contentDocument;const resize=()=>{frame.style.height=doc.documentElement.scrollHeight+'px';};resize();const observer=new ResizeObserver(resize);observer.observe(doc.body);frame._adventObserver=observer; }catch{}
+   
   };
   if(this._frame?._adventObserver)this._frame._adventObserver.disconnect();
   this._frame=frame;
