@@ -55,9 +55,10 @@ function setupAdvent() {
     if(!sheet.getFilter())sheet.getRange(1,1,sheet.getMaxRows(),6).createFilter();
     for(let day=1;day<=24;day++){
       const dd=String(day).padStart(2,'0'),title='Advent '+dd+'.12.2026';
-      if(book.getSheetByName(title))continue;
-      const daily=book.insertSheet(title);
-      daily.getRange('A1').setFormula('=QUERY(\''+SETTINGS.masterSheet+'\'!A:F,"select A,B,C,D,E where B = \''+SETTINGS.year+'-12-'+dd+'\'",1)');
+      const daily=book.getSheetByName(title)||book.insertSheet(title);
+      const separator = /^(de|fr|it|es|pt|nl|pl|da|fi|sv|nb|nn|cs|sk|hu|ro|bg|ru|uk|tr|el)(_|$)/i.test(book.getSpreadsheetLocale()) ? ';' : ',';
+      const query = "select A,B,C,D,E where B = '" + SETTINGS.year + "-12-" + dd + "'";
+      daily.getRange('A1').setFormula('=QUERY(\''+SETTINGS.masterSheet+'\'!A:F'+separator+'"'+query+'"'+separator+'1)');
       daily.setFrozenRows(1);daily.getRange(1,1,1,5).setBackground('#174b91').setFontColor('#ffffff').setFontWeight('bold');
       daily.setColumnWidth(1,170);daily.setColumnWidth(2,110);daily.setColumnWidth(3,80);daily.setColumnWidth(4,220);daily.setColumnWidth(5,280);
     }
