@@ -1,14 +1,14 @@
 /** EUROMASTER Advent 2026 – im Apps-Script-Projekt der Ziel-Tabelle ausführen. */
 const SETTINGS = Object.freeze({
   spreadsheetId: '1MW9MiSW6HRsV8SrUknZA8LZHjEnnuc9LEh2u2q7dhsg',
-  campaign: 'euromaster-advent-2026', year: 2026, testDate: '2026-10-29',
+  campaign: 'euromaster-advent-2026', year: 2026, testDate: '2026-11-02',
   masterSheet: 'Advent Teilnahmen 2026', timezone: 'Europe/Berlin'
 });
 const HEADERS = ['Eingetragen am', 'Datum', 'Türchen', 'Name', 'E-Mail', 'Teilnahmeschlüssel'];
 function result_(data) {
   return ContentService.createTextOutput(JSON.stringify(data)).setMimeType(ContentService.MimeType.JSON);
 }
-function doGet() { return result_({ok:true, service:'EUROMASTER Advent 2026', acceptingPersonalDataVia:'POST only',version:'2026-10-29-test1',testDate:SETTINGS.testDate,testDay:1}); }
+function doGet() { return result_({ok:true, service:'EUROMASTER Advent 2026', acceptingPersonalDataVia:'POST only',version:'2026-11-02-test1',testDate:SETTINGS.testDate,testDay:1}); }
 function textCell_(value) { return /^[=+\-@\s]/.test(value) ? "'"+value : value; }
 function validate_(data, now) {
   if(!data || data.campaign!==SETTINGS.campaign || data.preview!==false || data.year!==SETTINGS.year || !Number.isInteger(data.day) || data.day<1 || data.day>24) return {error:'invalid'};
