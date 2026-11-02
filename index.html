@@ -29,6 +29,19 @@ header{justify-content:flex-end;padding:10px 16px;border:0;background:transparen
 
 /* A hinged paper door reveals a warm, illustrated calendar window. */
 .door{perspective:700px;isolation:isolate;overflow:visible;transform-style:preserve-3d;gap:0}.door-face{position:absolute;inset:0;border-radius:inherit;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:inherit;transform-origin:left center;backface-visibility:hidden;transition:transform .65s cubic-bezier(.2,.8,.2,1),box-shadow .65s;z-index:2;border:1px solid #ffffff55;box-shadow:inset 0 0 0 4px #ffffff18}.door-window{position:absolute;inset:5px;border-radius:9px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px;background:radial-gradient(ellipse at top,#fff8d5,#edc76c);color:#164194;box-shadow:inset 0 3px 16px #5c3c212b;opacity:0;transition:opacity .3s}.door-gift{font-size:39px;filter:drop-shadow(0 3px 3px #b2874140)}.opened-label{font:700 10px Montserrat,Arial;letter-spacing:.07em;text-transform:uppercase}.door.was-opened .door-face,.door.opening .door-face{transform:rotateY(-112deg);box-shadow:7px 2px 12px #08294d30}.door.was-opened .door-window,.door.opening .door-window{opacity:1}.door.was-opened:before,.door.opening:before{opacity:0}.door.was-opened{background:#d2af64;box-shadow:inset 0 0 0 3px #b88a39,0 3px 8px #08294d33}.door.was-opened.today{outline-color:#fedd00}.opened-day{position:absolute;right:9px;top:8px;font:700 12px Montserrat,Arial;color:#164194;z-index:1;display:none}.was-opened .opened-day,.opening .opened-day{display:block}.door-spark{pointer-events:none;position:absolute;left:50%;top:50%;font-size:34px;color:#fedd00;opacity:0;z-index:4}.opening .door-spark{animation:doorSpark .8s ease-out}.music-credit{font-size:10px;color:#536a83}.door:disabled.was-opened .door-window{filter:saturate(.65)}@keyframes doorSpark{0%{opacity:0;transform:translate(-50%,-50%) scale(.2) rotate(0)}35%{opacity:1}100%{opacity:0;transform:translate(-50%,-170%) scale(1.5) rotate(70deg)}}@media(prefers-reduced-motion:reduce){.door-face,.door-window{transition:none}.opening .door-spark{animation:none}}@media(max-width:480px){.door-gift{font-size:31px}.opened-label{font-size:8px}.opened-day{font-size:10px}}
+
+#participate{position:relative;transition:transform .15s,box-shadow .15s}
+#participate:active{transform:scale(.97);box-shadow:0 0 0 5px #fedd0040}
+#participate.is-saving{background:#174b91;color:white;padding-left:42px}
+#participate.is-saving:before{content:'❄';position:absolute;left:17px;animation:snow-spin 1.6s linear infinite}
+#feedback{position:relative;min-height:24px;white-space:normal}
+#feedback[data-error="true"]{color:#a52222;background:#fff0f0;padding:12px;border-radius:8px}
+.christmas-success{animation:gift-glow .8s ease-out}
+.participation-spark{position:absolute;pointer-events:none;left:50%;top:0;color:#c39b35;animation:snow-celebrate 1.5s var(--delay) ease-out both}
+@keyframes snow-spin{to{transform:rotate(360deg)}}
+@keyframes gift-glow{50%{box-shadow:0 0 22px #d4ae4b80;background:#fff9dc}}
+@keyframes snow-celebrate{from{opacity:0;transform:translate(0,0) scale(.4)}30%{opacity:1}to{opacity:0;transform:translate(var(--x),-90px) rotate(100deg) scale(1.2)}}
+@media(prefers-reduced-motion:reduce){#participate:before,.christmas-success,.participation-spark{animation:none!important}.participation-spark{display:none}}
 </style>
 <header><button id="adminExit" class="admin-top" hidden>✕ Redaktionsbereich verlassen</button><button id="adminOpen" class="admin-top">🔑 Redaktionsbereich</button></header>
 <main>
@@ -45,7 +58,7 @@ header{justify-content:flex-end;padding:10px 16px;border:0;background:transparen
 <section id="musicPanel" class="music-panel" aria-label="Weihnachtsmusik" hidden><div><strong id="songTitle"></strong><p id="musicStatus" role="status"></p><p id="musicAttribution" class="music-credit"></p><a id="musicCredit" class="music-credit" target="_blank" rel="noopener">Aufnahme und Quelle</a> · <a id="musicLicense" class="music-credit" target="_blank" rel="noopener"></a></div><button id="musicToggle" type="button" class="music-toggle" aria-pressed="false">Weihnachtslied abspielen</button></section>
 <section class="content-card" aria-label="Dein Weihnachtsgeschenk"><h3 id="materialsTitle"></h3><p id="materials"></p><h3>So geht’s</h3><ol id="steps"></ol><p id="contentTip" class="tip"></p></section>
 <section class="giveaway" aria-labelledby="giveawayTitle"><div class="section-kicker">Zusätzlich für dich</div><h3 id="giveawayTitle">🎁 Deine tägliche Gewinnchance</h3><p id="prizeText"></p><p id="identity" role="status"></p>
-<form id="participationForm"><div class="identity-row" id="identityFields"><div><label for="participantName">Dein Name</label><input id="participantName" name="name" autocomplete="name" maxlength="120" required></div><div><label for="participantEmail">Deine E-Mail-Adresse</label><input id="participantEmail" name="email" type="email" autocomplete="email" maxlength="254" required></div></div><p class="note">Mit „Jetzt teilnehmen“ werden Name und E-Mail für die heutige Verlosung in die zentrale Teilnehmerliste eingetragen. Pro E-Mail-Adresse ist eine Teilnahme je Tag möglich.</p><p class="note" id="legalLinks" hidden></p><button class="primary" id="participate" type="submit">Jetzt teilnehmen</button></form>
+<form id="participationForm"><div class="identity-row" id="identityFields"><div><label for="participantName">Dein Name</label><input id="participantName" name="name" autocomplete="name" maxlength="120" required></div><div><label for="participantEmail">Deine E-Mail-Adresse</label><input id="participantEmail" name="email" type="email" autocomplete="email" maxlength="254" required></div></div><p class="note">Mit „Jetzt teilnehmen“ werden Name und E-Mail für die heutige Verlosung in die zentrale Teilnehmerliste eingetragen. Pro E-Mail-Adresse ist eine Teilnahme je Tag möglich.</p><p class="note" id="legalLinks" hidden></p><button class="primary" id="participate" type="button">Jetzt teilnehmen</button></form>
 <p id="feedback" class="feedback" role="status"></p><p class="note" id="serviceNote"></p></section></dialog>
 <dialog id="adminModal" aria-labelledby="adminTitle"><form id="adminForm"><button type="button" class="close" id="adminClose" aria-label="Schließen">×</button><div class="eyebrow" style="color:#8c612c">Redaktionsbereich</div><h2 id="adminTitle">Ein Blick hinter die Türchen.</h2><p>Mit dem Vorschau-Passwort kannst du alle 24 Türchen öffnen. Testklicks bleiben in der Vorschau und werden nicht an die Teilnehmerliste gesendet.</p><label for="adminPassword">Vorschau-Passwort</label><input id="adminPassword" type="password" autocomplete="current-password" required><button class="primary" type="submit">Vorschau freischalten</button><p id="adminError" role="status"></p><p class="note">Oberflächenschutz für die redaktionelle Vorschau. Keine geschützte Verwaltung von Teilnehmerdaten.</p></form></dialog><script>
 'use strict';
@@ -80,7 +93,9 @@ function participant(){return staffbaseUser?.id?{name:[staffbaseUser.firstName,s
 function identityReady(){const person=participant();return !staffbaseUser?.id||(person.name.length>=2&&/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(person.email));}
 function completionKey(day){return [YEAR,isPreview?'preview':earlyAccess()?'test-2026-11-02':'live',day,participant().email].join(':');}
 function validEndpoint(url){return typeof url==='string'&&/^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec$/.test(url);}
+function celebrateParticipation(){const host=$('feedback');host.classList.remove('christmas-success');void host.offsetWidth;host.classList.add('christmas-success');for(let i=0;i<14;i++){const flake=document.createElement('span');flake.className='participation-spark';flake.textContent=i%3?'❄':'✦';flake.style.setProperty('--x',((i-6.5)*18)+'px');flake.style.setProperty('--delay',(i%4)*.07+'s');host.append(flake);setTimeout(()=>flake.remove(),1800);}}
 function syncParticipation(){
+ $('participate').classList.toggle('is-saving',submitting);$('participate').setAttribute('aria-busy',String(submitting));
  const done=completed.has(completionKey(activeDay));
  const beforeGiveaway=!isPreview&&!participationOpen(activeDay);
  $('participate').disabled=!identityReady()||beforeGiveaway||submitting||done||(!isPreview&&!validEndpoint(config?.participationUrl));
@@ -123,13 +138,14 @@ function openDoor(day){if(!available(day))return;rememberOpened(day);render();ac
  $('feedback').textContent='';renderPrize();updateIdentity();$('modal').showModal();$('modal').scrollTop=0;
 }
 $('participantEmail').addEventListener('input',()=>{$('feedback').textContent='';syncParticipation();});
-$('participationForm').addEventListener('submit',async event=>{
+$('participationForm').addEventListener('submit',event=>event.preventDefault());
+$('participate').addEventListener('click',async event=>{
  event.preventDefault();const day=activeDay,preview=isPreview,person=participant(),entryKey=completionKey(activeDay);
  if(submitting||!identityReady()||day===null||!available(day)||(!preview&&!participationOpen(day))||completed.has(completionKey(day)))return;
- if(!$('participationForm').reportValidity())return;
+ if(!$('participationForm').reportValidity()){$('feedback').dataset.error='true';$('feedback').textContent='Name oder E-Mail fehlen. Bitte prüfe die angezeigten Profildaten.';return;}
  if(preview){completed.add(completionKey(day));syncParticipation();return;}
  if(!validEndpoint(config?.participationUrl)){syncParticipation();return;}
- submitting=true;$('feedback').textContent='';syncParticipation();
+ submitting=true;$('feedback').dataset.error='false';$('feedback').textContent='❄ Deine Teilnahme wird gespeichert …';syncParticipation();
  const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),20000);
  try{
   const response=await fetch(config.participationUrl,{method:'POST',redirect:'follow',credentials:'omit',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({campaign:config.campaign,year:YEAR,day,name:person.name,email:person.email,preview:false}),signal:controller.signal});
@@ -137,8 +153,8 @@ $('participationForm').addEventListener('submit',async event=>{
   if(!result.ok)throw Error(result.code||'server');
   completed.add(entryKey);
   if(activeDay===day&&isPreview===preview){$('feedback').dataset.error='false';$('feedback').textContent=result.test?(result.duplicate?'Deine Testteilnahme ist bereits in der Gesamtliste eingetragen.':'Deine Testteilnahme wurde in die Gesamtliste eingetragen.') :result.duplicate?'Du stehst für heute bereits auf der Teilnehmerliste. Viel Glück!':'Deine Teilnahme wurde in die Tagesliste eingetragen. Viel Glück!';}
- }catch(error){if(activeDay===day&&isPreview===preview){$('feedback').dataset.error='true';$('feedback').textContent=error.message==='closed'?'Die Teilnahme für dieses Türchen ist beendet.':error.message==='invalid'?'Bitte prüfe Name und E-Mail-Adresse.':'Die Teilnahme konnte nicht bestätigt werden. Bitte versuche es erneut. Falls sie bereits eingetragen wurde, entsteht keine zweite Teilnahme.';}}
- finally{clearTimeout(timer);submitting=false;syncParticipation();}
+ }catch(error){if(activeDay===day&&isPreview===preview){$('feedback').dataset.error='true';$('feedback').textContent=error.message==='closed'?'Das Google Apps Script hat den heutigen Test noch nicht freigeschaltet. Bitte dort den aktuellen Code als neue Version der bestehenden Web-App bereitstellen.':error.message==='not_configured'?'Das Tabellenblatt fehlt oder hat andere Spalten. Bitte setupAdvent im Apps Script ausführen.':error.message==='storage'?'Google konnte die Tabelle nicht beschreiben. Bitte die Tabellenberechtigung des Apps Scripts prüfen.':error.message==='invalid'?'Bitte prüfe Name und E-Mail-Adresse.':'Die Teilnahme konnte nicht bestätigt werden. Bitte versuche es erneut. Falls sie bereits eingetragen wurde, entsteht keine zweite Teilnahme.';}}
+ finally{clearTimeout(timer);submitting=false;syncParticipation();if(completed.has(entryKey)&&activeDay===day&&isPreview===preview)celebrateParticipation();}
 });
 fetch(CONFIG_URL,{cache:'no-store',credentials:'omit'}).then(r=>{if(!r.ok)throw Error();return r.json();}).then(data=>{config=data;renderPrize();syncParticipation();}).catch(()=>{configError=true;syncParticipation();});
 /* Das Widget setzt diesen Kanal erst beim Einbetten. Keine Profildaten aus beliebigen Nachrichten übernehmen. */
