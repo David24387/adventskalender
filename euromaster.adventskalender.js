@@ -13,7 +13,7 @@ const factory = (BaseBlockClass, widgetApi) => class extends BaseBlockClass {
   const frame=document.createElement('iframe');
   frame.title='EUROMASTER Adventskalender';
   frame.style.cssText='display:block;width:100%;height:1px;border:0;background:transparent;border-radius:16px';
-  frame.setAttribute('sandbox','allow-scripts allow-same-origin');
+  frame.setAttribute('sandbox','allow-scripts allow-same-origin allow-forms');
   frame.setAttribute('allow','autoplay');
   frame.srcdoc=TEMPLATE.replace('const IDENTITY_CHANNEL=null;', 'const IDENTITY_CHANNEL='+JSON.stringify(channel)+';');
   frame.onload=async()=>{
