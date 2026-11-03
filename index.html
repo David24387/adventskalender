@@ -43,6 +43,14 @@ header{justify-content:flex-end;padding:10px 16px;border:0;background:transparen
 @keyframes snow-celebrate{from{opacity:0;transform:translate(0,0) scale(.4)}30%{opacity:1}to{opacity:0;transform:translate(var(--x),-90px) rotate(100deg) scale(1.2)}}
 @media(prefers-reduced-motion:reduce){#participate:before,.christmas-success,.participation-spark{animation:none!important}.participation-spark{display:none}}
 .calendar-celebration{position:fixed;inset:0;z-index:2147483647;overflow:hidden;pointer-events:none}.calendar-celebration span{position:absolute;top:-50px;color:#fff4c1;text-shadow:0 0 8px #d6a62c,0 2px 4px #174b91;animation:calendar-snowfall 2.8s ease-in both}@keyframes calendar-snowfall{0%{opacity:0;transform:translate(0,-30px) rotate(0)}12%{opacity:1}85%{opacity:1}100%{opacity:0;transform:translate(var(--drift),110vh) rotate(240deg)}}@media(prefers-reduced-motion:reduce){.calendar-celebration{display:none}}
+
+/* Preisvorschau und Sprung innerhalb des Tagesfensters */
+.giveaway-jump{display:inline-flex;align-items:center;gap:10px;margin:4px 0 10px;padding:12px 18px;border:1px solid #174b91;border-radius:10px;background:#edf4fc;color:#174b91;font:700 13px Montserrat,Arial,sans-serif;cursor:pointer}
+.giveaway-jump:hover{background:#dfeaf8}.giveaway:focus{outline:3px solid #174b91;outline-offset:4px}
+.prize-preview{margin:16px 0 20px}.prize-image{display:block;width:100%;height:240px;object-fit:contain;background:#fff;border:1px solid #dce5ef;border-radius:12px}
+.prize-placeholder{min-height:210px;padding:24px;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:10px;text-align:center;background:linear-gradient(135deg,#edf4fc,#fff9dd);border:2px dashed #b7cae1;border-radius:12px;color:#174b91}
+.prize-placeholder span{font-size:52px}.prize-placeholder small{font-size:12px;color:#536a83}
+#prizeName{margin:16px 0 8px;font-size:19px}#prizeText{margin-top:0}@media(max-width:480px){.prize-image{height:190px}.prize-placeholder{min-height:180px}}
 </style>
 <header><button id="adminExit" class="admin-top" hidden>✕ Redaktionsbereich verlassen</button><button id="adminOpen" class="admin-top">🔑 Redaktionsbereich</button></header>
 <main>
@@ -53,12 +61,12 @@ header{justify-content:flex-end;padding:10px 16px;border:0;background:transparen
 
 </main>
 <dialog id="modal" aria-labelledby="modalTitle"><button class="close" id="close" aria-label="Schließen">×</button>
-<div class="gift" id="contentIcon" aria-hidden="true"></div><div class="eyebrow category" id="modalDate"></div><h2 id="modalTitle"></h2><p id="modalIntro"></p>
+<div class="gift" id="contentIcon" aria-hidden="true"></div><div class="eyebrow category" id="modalDate"></div><h2 id="modalTitle"></h2><p id="modalIntro"></p><button type="button" class="giveaway-jump" id="jumpToGiveaway" aria-controls="dailyGiveaway">Zum Gewinnspiel <span aria-hidden="true">↓</span></button>
 <figure id="recipeFigure" class="recipe-figure" hidden><img id="recipeImage" alt="" width="1200" height="800"><figcaption id="recipeCaption"></figcaption></figure>
 <audio id="doorAudio" preload="none" loop></audio>
 <section id="musicPanel" class="music-panel" aria-label="Weihnachtsmusik" hidden><div><strong id="songTitle"></strong><p id="musicStatus" role="status"></p><p id="musicAttribution" class="music-credit"></p><a id="musicCredit" class="music-credit" target="_blank" rel="noopener">Aufnahme und Quelle</a> · <a id="musicLicense" class="music-credit" target="_blank" rel="noopener"></a></div><button id="musicToggle" type="button" class="music-toggle" aria-pressed="false">Weihnachtslied abspielen</button></section>
 <section class="content-card" aria-label="Dein Weihnachtsgeschenk"><h3 id="materialsTitle"></h3><p id="materials"></p><h3>So geht’s</h3><ol id="steps"></ol><p id="contentTip" class="tip"></p></section>
-<section class="giveaway" aria-labelledby="giveawayTitle"><div class="section-kicker">Zusätzlich für dich</div><h3 id="giveawayTitle">🎁 Deine tägliche Gewinnchance</h3><p id="prizeText"></p><p id="identity" role="status"></p>
+<section class="giveaway" id="dailyGiveaway" tabindex="-1" aria-labelledby="giveawayTitle"><div class="section-kicker">Zusätzlich für dich</div><h3 id="giveawayTitle">🎁 Deine tägliche Gewinnchance</h3><div class="prize-preview"><img class="prize-image" id="prizeImage" hidden alt=""><div class="prize-placeholder" id="prizePlaceholder" role="img" aria-label="Platzhalter für das Preisbild"><span aria-hidden="true">🎁</span><strong id="prizePlaceholderLabel">Dein Tagesgewinn</strong><small>Hier folgt das Bild des Preises</small></div><h4 id="prizeName"></h4><p id="prizeText"></p></div><p id="identity" role="status"></p>
 <form id="participationForm"><div class="identity-row" id="identityFields"><div><label for="participantName">Dein Name</label><input id="participantName" name="name" autocomplete="name" maxlength="120" required></div><div><label for="participantEmail">Deine E-Mail-Adresse</label><input id="participantEmail" name="email" type="email" autocomplete="email" maxlength="254" required></div></div><p class="note">Mit „Jetzt teilnehmen“ werden Name und E-Mail für die heutige Verlosung in die zentrale Teilnehmerliste eingetragen. Pro E-Mail-Adresse ist eine Teilnahme je Tag möglich.</p><p class="note" id="legalLinks" hidden></p><button class="primary" id="participate" type="button">Jetzt teilnehmen</button></form>
 <p id="feedback" class="feedback" role="status"></p><p class="note" id="serviceNote"></p></section></dialog>
 <dialog id="adminModal" aria-labelledby="adminTitle"><form id="adminForm"><button type="button" class="close" id="adminClose" aria-label="Schließen">×</button><div class="eyebrow" style="color:#8c612c">Redaktionsbereich</div><h2 id="adminTitle">Ein Blick hinter die Türchen.</h2><p>Mit dem Vorschau-Passwort kannst du alle 24 Türchen öffnen. Testklicks bleiben in der Vorschau und werden nicht an die Teilnehmerliste gesendet.</p><label for="adminPassword">Vorschau-Passwort</label><input id="adminPassword" type="password" autocomplete="current-password" required><button class="primary" type="submit">Vorschau freischalten</button><p id="adminError" role="status"></p><p class="note">Oberflächenschutz für die redaktionelle Vorschau. Keine geschützte Verwaltung von Teilnehmerdaten.</p></form></dialog><script>
@@ -121,7 +129,16 @@ function updateIdentity(){
 }
 function renderPrize(){
  const prize=config?.prizes?.[activeDay];
- $('prizeText').textContent=prize?'Heute verlosen wir: '+prize:'Auch heute ist eine Tagesverlosung vorgesehen. Den konkreten Gewinn geben wir noch bekannt.';
+ const details=prize&&typeof prize==='object'?prize:{name:typeof prize==='string'?prize:''};
+ $('prizeName').textContent=details.name||'Überraschungsgewinn · '+(activeDay||1)+'. Dezember';
+ $('prizeText').textContent=details.description||'Hier stellen wir dir bald den heutigen Preis vor – mit allen Details zum Gewinn und zur Anzahl der verlosten Preise.';
+ $('prizePlaceholderLabel').textContent='Tagesgewinn · '+(activeDay||1)+'. Dezember';
+ const image=$('prizeImage'),placeholder=$('prizePlaceholder');
+ image.hidden=true;placeholder.hidden=false;image.removeAttribute('src');
+ image.onload=()=>{image.hidden=false;placeholder.hidden=true;};
+ image.onerror=()=>{image.hidden=true;placeholder.hidden=false;};
+ image.alt=details.imageAlt||details.name||'Bild des Tagesgewinns';
+ if(typeof details.image==='string'&&/^https:\/\//.test(details.image))image.src=details.image;
  const links=$('legalLinks');links.replaceChildren();
  for(const [label,url] of [['Teilnahmebedingungen',config?.termsUrl],['Datenschutzhinweise',config?.privacyUrl]]){
   if(typeof url==='string'&&/^https:\/\//.test(url)){const a=document.createElement('a');a.textContent=label;a.href=url;a.target='_blank';a.rel='noopener';if(links.childNodes.length)links.append(' · ');links.append(a);}
@@ -167,6 +184,11 @@ fetch(CONFIG_URL,{cache:'no-store',credentials:'omit'}).then(r=>{if(!r.ok)throw 
 /* Das Widget setzt diesen Kanal erst beim Einbetten. Keine Profildaten aus beliebigen Nachrichten übernehmen. */
 const IDENTITY_CHANNEL=null;
 window.addEventListener('message',event=>{if(!IDENTITY_CHANNEL||event.source!==parent||event.data?.channel!==IDENTITY_CHANNEL)return;staffbaseUser=event.data.user;updateIdentity();});
+$('jumpToGiveaway').addEventListener('click',()=>{
+ const modal=$('modal'),target=$('dailyGiveaway');
+ target.focus({preventScroll:true});
+ modal.scrollTo({top:modal.scrollTop+target.getBoundingClientRect().top-modal.getBoundingClientRect().top-18,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});
+});
 $('musicToggle').addEventListener('click',toggleMusic);
 $('modal').addEventListener('close',stopDoorSong);
 $('modal').addEventListener('cancel',stopDoorSong);
