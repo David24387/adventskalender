@@ -101,7 +101,9 @@
       "imageAlt": "Produktfoto als Beispiel: WMF elektrische Salz- und Pfeffermühle"
     },
     "23": {
-      "name": "ARAL Gutschein 40 €"
+      "name": "ARAL Gutschein 40 €",
+      "image": "https://dccdn.de/www.aral-supercard.de/fileadmin/_processed_/4/b/csm_img-promo--standardkarten_40a0ac7461.jpg",
+      "imageAlt": "Offizielles Beispielbild verschiedener Aral SuperCard Gutscheinkarten"
     },
     "24": {
       "name": "Samsonite Illustro Black"
