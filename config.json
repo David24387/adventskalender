@@ -3,7 +3,9 @@
   "campaign": "euromaster-advent-2026",
   "prizes": {
     "1": {
-      "name": "Thermobecher"
+      "name": "Thermobecher",
+      "image": "https://coffeecupshop.eu/cdn/shop/files/termos_1_czarny_pokrywka_5b0225e6-9010-4418-9fcb-d32f504f6de1.png?v=1774962441&width=1445",
+      "imageAlt": "Produktfoto als Beispiel: Thermobecher"
     },
     "2": {
       "name": "Michelin Taschenlampe per USB"
@@ -15,10 +17,14 @@
       "name": "Amazon Gutschein 20 €"
     },
     "5": {
-      "name": "LED Akku-Handleuchte mit Dynamo"
+      "name": "LED Akku-Handleuchte mit Dynamo",
+      "image": "https://microsites.pearl.de/i/07/nx6962_0.jpg",
+      "imageAlt": "Produktfoto als Beispiel: LED Akku-Handleuchte mit Dynamo"
     },
     "6": {
-      "name": "Bosch GlassVAC"
+      "name": "Bosch GlassVAC",
+      "image": "https://www.worldshop.eu/medias/img/8924245196830_w1500_z_6830532/bosch-glassvac-solo-plus-window-vacuum-white.jpeg",
+      "imageAlt": "Produktfoto als Beispiel: Bosch GlassVAC"
     },
     "7": {
       "name": "Michelin verlängerter Eiskratzer/Besen"
@@ -27,19 +33,27 @@
       "name": "Continental Uhr"
     },
     "9": {
-      "name": "Thermobecher"
+      "name": "Thermobecher",
+      "image": "https://coffeecupshop.eu/cdn/shop/files/termos_1_czarny_pokrywka_5b0225e6-9010-4418-9fcb-d32f504f6de1.png?v=1774962441&width=1445",
+      "imageAlt": "Produktfoto als Beispiel: Thermobecher"
     },
     "10": {
-      "name": "American Tourister Urban Groove Duffle Sport Black"
+      "name": "American Tourister Urban Groove Duffle Sport Black",
+      "image": "https://tourister.com.ua/content/images/19/1000x1000l95mc0/sumka-sportyvno-dorozhnia-american-tourister-urban-groove-ug17-urban-24g049-black-mala-89777832579137.jpg",
+      "imageAlt": "Produktfoto als Beispiel: American Tourister Urban Groove Duffle Sport Black"
     },
     "11": {
       "name": "Michelin Taschenlampe per USB"
     },
     "12": {
-      "name": "WMF Bar-Set"
+      "name": "WMF Bar-Set",
+      "image": "https://www.ballantynes.co.nz/on/demandware.static/-/Sites-ballantynes-master-catalog/default/dw1f354e70/2378251_na_1f.jpg",
+      "imageAlt": "Produktfoto als Beispiel: WMF Bar-Set"
     },
     "13": {
-      "name": "Bosch IXO 7 Set"
+      "name": "Bosch IXO 7 Set",
+      "image": "https://media.4rgos.it/i/Argos/4587574_R_Z001A",
+      "imageAlt": "Produktfoto als Beispiel: Bosch IXO 7 Set"
     },
     "14": {
       "name": "Amazon Gutschein 20 €"
@@ -48,25 +62,35 @@
       "name": "Michelin Car Neck Pillow"
     },
     "16": {
-      "name": "American Tourister Urban Groove Duffle Sport Black"
+      "name": "American Tourister Urban Groove Duffle Sport Black",
+      "image": "https://tourister.com.ua/content/images/19/1000x1000l95mc0/sumka-sportyvno-dorozhnia-american-tourister-urban-groove-ug17-urban-24g049-black-mala-89777832579137.jpg",
+      "imageAlt": "Produktfoto als Beispiel: American Tourister Urban Groove Duffle Sport Black"
     },
     "17": {
       "name": "Michelin verlängerter Eiskratzer/Besen"
     },
     "18": {
-      "name": "WMF Steakbesteck"
+      "name": "WMF Steakbesteck",
+      "image": "https://www.smartgoods.de/wmf-steakbesteck-set-12-teilig-in-holzkiste.208572_800x800.jpg",
+      "imageAlt": "Produktfoto als Beispiel: WMF Steakbesteck"
     },
     "19": {
       "name": "Amazon Gutschein 30 €"
     },
     "20": {
-      "name": "Raclette PartyGrill"
+      "name": "Raclette PartyGrill",
+      "image": "https://zoom.com.tn/60270-large_default/appareil-a-raclette-princess-162700-l-1200w-l-oval-grill-party-8.jpg",
+      "imageAlt": "Produktfoto als Beispiel: Raclette PartyGrill"
     },
     "21": {
-      "name": "American Tourister Urban Groove Duffle Sport Black"
+      "name": "American Tourister Urban Groove Duffle Sport Black",
+      "image": "https://tourister.com.ua/content/images/19/1000x1000l95mc0/sumka-sportyvno-dorozhnia-american-tourister-urban-groove-ug17-urban-24g049-black-mala-89777832579137.jpg",
+      "imageAlt": "Produktfoto als Beispiel: American Tourister Urban Groove Duffle Sport Black"
     },
     "22": {
-      "name": "WMF elektrische Salz- und Pfeffermühle"
+      "name": "WMF elektrische Salz- und Pfeffermühle",
+      "image": "https://static01.galaxus.com/productimages/8/4/6/1/1/7/0/2/0/8/1/5/0/8/5/3/6/8/6/019bfde5-c1fb-788f-8f3a-798122d16b6a_sea.jpeg",
+      "imageAlt": "Produktfoto als Beispiel: WMF elektrische Salz- und Pfeffermühle"
     },
     "23": {
       "name": "ARAL Gutschein 40 €"
