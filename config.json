@@ -1,7 +1,80 @@
 {
   "participationUrl": "https://script.google.com/macros/s/AKfycbx2ybtN8SN_Ya8YjsVhhozgCqt9J3wgsGKQJVoVw8QwcZEYVpcpq5brPrVvt4CEksM/exec",
   "campaign": "euromaster-advent-2026",
-  "prizes": {},
+  "prizes": {
+    "1": {
+      "name": "Thermobecher"
+    },
+    "2": {
+      "name": "Michelin Taschenlampe per USB"
+    },
+    "3": {
+      "name": "Michelin Car Neck Pillow"
+    },
+    "4": {
+      "name": "Amazon Gutschein 20 €"
+    },
+    "5": {
+      "name": "LED Akku-Handleuchte mit Dynamo"
+    },
+    "6": {
+      "name": "Bosch GlassVAC"
+    },
+    "7": {
+      "name": "Michelin verlängerter Eiskratzer/Besen"
+    },
+    "8": {
+      "name": "Continental Uhr"
+    },
+    "9": {
+      "name": "Thermobecher"
+    },
+    "10": {
+      "name": "American Tourister Urban Groove Duffle Sport Black"
+    },
+    "11": {
+      "name": "Michelin Taschenlampe per USB"
+    },
+    "12": {
+      "name": "WMF Bar-Set"
+    },
+    "13": {
+      "name": "Bosch IXO 7 Set"
+    },
+    "14": {
+      "name": "Amazon Gutschein 20 €"
+    },
+    "15": {
+      "name": "Michelin Car Neck Pillow"
+    },
+    "16": {
+      "name": "American Tourister Urban Groove Duffle Sport Black"
+    },
+    "17": {
+      "name": "Michelin verlängerter Eiskratzer/Besen"
+    },
+    "18": {
+      "name": "WMF Steakbesteck"
+    },
+    "19": {
+      "name": "Amazon Gutschein 30 €"
+    },
+    "20": {
+      "name": "Raclette PartyGrill"
+    },
+    "21": {
+      "name": "American Tourister Urban Groove Duffle Sport Black"
+    },
+    "22": {
+      "name": "WMF elektrische Salz- und Pfeffermühle"
+    },
+    "23": {
+      "name": "ARAL Gutschein 40 €"
+    },
+    "24": {
+      "name": "Samsonite Illustro Black"
+    }
+  },
   "privacyUrl": "",
   "termsUrl": ""
 }
