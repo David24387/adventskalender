@@ -106,7 +106,9 @@
       "imageAlt": "Offizielles Beispielbild verschiedener Aral SuperCard Gutscheinkarten"
     },
     "24": {
-      "name": "Samsonite Illustro Black"
+      "name": "Samsonite Illustro Black",
+      "image": "https://www.bagalier.com/sites/default/files/media/products/sams/800070063263/800070063263-1.jpg",
+      "imageAlt": "Samsonite Illustro Black, Produktfoto des schwarzen Kabinentrolleys"
     }
   },
   "privacyUrl": "",
