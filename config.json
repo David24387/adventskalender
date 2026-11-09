@@ -8,7 +8,9 @@
       "imageAlt": "Produktfoto als Beispiel: Thermobecher"
     },
     "2": {
-      "name": "Michelin Taschenlampe per USB"
+      "name": "Michelin Taschenlampe per USB",
+      "image": "https://david24387.github.io/adventskalender/assets/placeholder-michelin-taschenlampe.svg",
+      "imageAlt": "Neutraler Platzhalter: Michelin Taschenlampe per USB – Originalabbildung folgt"
     },
     "3": {
       "name": "Michelin Car Neck Pillow",
@@ -16,7 +18,9 @@
       "imageAlt": "Produktbeispiel für Michelin Car Neck Pillow"
     },
     "4": {
-      "name": "Amazon Gutschein 20 €"
+      "name": "Amazon Gutschein 20 €",
+      "image": "https://david24387.github.io/adventskalender/assets/placeholder-amazon-gutschein.svg",
+      "imageAlt": "Neutraler Platzhalter: Amazon Gutschein 20 € – Originalabbildung folgt"
     },
     "5": {
       "name": "LED Akku-Handleuchte mit Dynamo",
@@ -34,7 +38,9 @@
       "imageAlt": "Produktbeispiel für Michelin verlängerter Eiskratzer/Besen"
     },
     "8": {
-      "name": "Continental Uhr"
+      "name": "Continental Uhr",
+      "image": "https://david24387.github.io/adventskalender/assets/placeholder-continental-uhr.svg",
+      "imageAlt": "Neutraler Platzhalter: Continental Uhr – Originalabbildung folgt"
     },
     "9": {
       "name": "Thermobecher",
@@ -47,7 +53,9 @@
       "imageAlt": "Produktfoto als Beispiel: American Tourister Urban Groove Duffle Sport Black"
     },
     "11": {
-      "name": "Michelin Taschenlampe per USB"
+      "name": "Michelin Taschenlampe per USB",
+      "image": "https://david24387.github.io/adventskalender/assets/placeholder-michelin-taschenlampe.svg",
+      "imageAlt": "Neutraler Platzhalter: Michelin Taschenlampe per USB – Originalabbildung folgt"
     },
     "12": {
       "name": "WMF Bar-Set",
@@ -60,7 +68,9 @@
       "imageAlt": "Produktfoto als Beispiel: Bosch IXO 7 Set"
     },
     "14": {
-      "name": "Amazon Gutschein 20 €"
+      "name": "Amazon Gutschein 20 €",
+      "image": "https://david24387.github.io/adventskalender/assets/placeholder-amazon-gutschein.svg",
+      "imageAlt": "Neutraler Platzhalter: Amazon Gutschein 20 € – Originalabbildung folgt"
     },
     "15": {
       "name": "Michelin Car Neck Pillow",
