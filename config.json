@@ -3,124 +3,76 @@
   "campaign": "euromaster-advent-2026",
   "prizes": {
     "1": {
-      "name": "Thermobecher",
-      "image": "https://david24387.github.io/adventskalender/assets/prizes/thermobecher.svg",
-      "imageAlt": "Illustratives Beispielbild: Thermobecher"
+      "name": "Thermobecher"
     },
     "2": {
-      "name": "Michelin Taschenlampe per USB",
-      "image": "https://david24387.github.io/adventskalender/assets/prizes/michelin-usb-taschenlampe.svg",
-      "imageAlt": "Illustratives Beispielbild: Michelin Taschenlampe per USB"
+      "name": "Michelin Taschenlampe per USB"
     },
     "3": {
-      "name": "Michelin Car Neck Pillow",
-      "image": "https://david24387.github.io/adventskalender/assets/prizes/nackenkissen.svg",
-      "imageAlt": "Illustratives Beispielbild: Michelin Car Neck Pillow"
+      "name": "Michelin Car Neck Pillow"
     },
     "4": {
-      "name": "Amazon Gutschein 20 €",
-      "image": "https://david24387.github.io/adventskalender/assets/prizes/amazon-gutschein.svg",
-      "imageAlt": "Illustratives Beispielbild: Amazon Gutschein 20 €"
+      "name": "Amazon Gutschein 20 €"
     },
     "5": {
-      "name": "LED Akku-Handleuchte mit Dynamo",
-      "image": "https://david24387.github.io/adventskalender/assets/prizes/akku-handleuchte.svg",
-      "imageAlt": "Illustratives Beispielbild: LED Akku-Handleuchte mit Dynamo"
+      "name": "LED Akku-Handleuchte mit Dynamo"
     },
     "6": {
-      "name": "Bosch GlassVAC",
-      "image": "https://david24387.github.io/adventskalender/assets/prizes/bosch-glassvac.svg",
-      "imageAlt": "Illustratives Beispielbild: Bosch GlassVAC"
+      "name": "Bosch GlassVAC"
     },
     "7": {
-      "name": "Michelin verlängerter Eiskratzer/Besen",
-      "image": "https://david24387.github.io/adventskalender/assets/prizes/eiskratzer.svg",
-      "imageAlt": "Illustratives Beispielbild: Michelin verlängerter Eiskratzer/Besen"
+      "name": "Michelin verlängerter Eiskratzer/Besen"
     },
     "8": {
-      "name": "Continental Uhr",
-      "image": "https://david24387.github.io/adventskalender/assets/prizes/continental-uhr.svg",
-      "imageAlt": "Illustratives Beispielbild: Continental Uhr"
+      "name": "Continental Uhr"
     },
     "9": {
-      "name": "Thermobecher",
-      "image": "https://david24387.github.io/adventskalender/assets/prizes/thermobecher.svg",
-      "imageAlt": "Illustratives Beispielbild: Thermobecher"
+      "name": "Thermobecher"
     },
     "10": {
-      "name": "American Tourister Urban Groove Duffle Sport Black",
-      "image": "https://david24387.github.io/adventskalender/assets/prizes/sporttasche.svg",
-      "imageAlt": "Illustratives Beispielbild: American Tourister Urban Groove Duffle Sport Black"
+      "name": "American Tourister Urban Groove Duffle Sport Black"
     },
     "11": {
-      "name": "Michelin Taschenlampe per USB",
-      "image": "https://david24387.github.io/adventskalender/assets/prizes/michelin-usb-taschenlampe.svg",
-      "imageAlt": "Illustratives Beispielbild: Michelin Taschenlampe per USB"
+      "name": "Michelin Taschenlampe per USB"
     },
     "12": {
-      "name": "WMF Bar-Set",
-      "image": "https://david24387.github.io/adventskalender/assets/prizes/wmf-barset.svg",
-      "imageAlt": "Illustratives Beispielbild: WMF Bar-Set"
+      "name": "WMF Bar-Set"
     },
     "13": {
-      "name": "Bosch IXO 7 Set",
-      "image": "https://david24387.github.io/adventskalender/assets/prizes/bosch-ixo.svg",
-      "imageAlt": "Illustratives Beispielbild: Bosch IXO 7 Set"
+      "name": "Bosch IXO 7 Set"
     },
     "14": {
-      "name": "Amazon Gutschein 20 €",
-      "image": "https://david24387.github.io/adventskalender/assets/prizes/amazon-gutschein.svg",
-      "imageAlt": "Illustratives Beispielbild: Amazon Gutschein 20 €"
+      "name": "Amazon Gutschein 20 €"
     },
     "15": {
-      "name": "Michelin Car Neck Pillow",
-      "image": "https://david24387.github.io/adventskalender/assets/prizes/nackenkissen.svg",
-      "imageAlt": "Illustratives Beispielbild: Michelin Car Neck Pillow"
+      "name": "Michelin Car Neck Pillow"
     },
     "16": {
-      "name": "American Tourister Urban Groove Duffle Sport Black",
-      "image": "https://david24387.github.io/adventskalender/assets/prizes/sporttasche.svg",
-      "imageAlt": "Illustratives Beispielbild: American Tourister Urban Groove Duffle Sport Black"
+      "name": "American Tourister Urban Groove Duffle Sport Black"
     },
     "17": {
-      "name": "Michelin verlängerter Eiskratzer/Besen",
-      "image": "https://david24387.github.io/adventskalender/assets/prizes/eiskratzer.svg",
-      "imageAlt": "Illustratives Beispielbild: Michelin verlängerter Eiskratzer/Besen"
+      "name": "Michelin verlängerter Eiskratzer/Besen"
     },
     "18": {
-      "name": "WMF Steakbesteck",
-      "image": "https://david24387.github.io/adventskalender/assets/prizes/wmf-steakbesteck.svg",
-      "imageAlt": "Illustratives Beispielbild: WMF Steakbesteck"
+      "name": "WMF Steakbesteck"
     },
     "19": {
-      "name": "Amazon Gutschein 30 €",
-      "image": "https://david24387.github.io/adventskalender/assets/prizes/amazon-gutschein.svg",
-      "imageAlt": "Illustratives Beispielbild: Amazon Gutschein 30 €"
+      "name": "Amazon Gutschein 30 €"
     },
     "20": {
-      "name": "Raclette PartyGrill",
-      "image": "https://david24387.github.io/adventskalender/assets/prizes/raclette.svg",
-      "imageAlt": "Illustratives Beispielbild: Raclette PartyGrill"
+      "name": "Raclette PartyGrill"
     },
     "21": {
-      "name": "American Tourister Urban Groove Duffle Sport Black",
-      "image": "https://david24387.github.io/adventskalender/assets/prizes/sporttasche.svg",
-      "imageAlt": "Illustratives Beispielbild: American Tourister Urban Groove Duffle Sport Black"
+      "name": "American Tourister Urban Groove Duffle Sport Black"
     },
     "22": {
-      "name": "WMF elektrische Salz- und Pfeffermühle",
-      "image": "https://david24387.github.io/adventskalender/assets/prizes/wmf-muehlen.svg",
-      "imageAlt": "Illustratives Beispielbild: WMF elektrische Salz- und Pfeffermühle"
+      "name": "WMF elektrische Salz- und Pfeffermühle"
     },
     "23": {
-      "name": "ARAL Gutschein 40 €",
-      "image": "https://david24387.github.io/adventskalender/assets/prizes/aral-gutschein.svg",
-      "imageAlt": "Illustratives Beispielbild: ARAL Gutschein 40 €"
+      "name": "ARAL Gutschein 40 €"
     },
     "24": {
-      "name": "Samsonite Illustro Black",
-      "image": "https://david24387.github.io/adventskalender/assets/prizes/samsonite-koffer.svg",
-      "imageAlt": "Illustratives Beispielbild: Samsonite Illustro Black"
+      "name": "Samsonite Illustro Black"
     }
   },
   "privacyUrl": "",
